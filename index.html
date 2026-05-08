@@ -3,267 +3,258 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>مملكة أفلانة الكيوت 🌸</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;800;900&family=Grand+Hotel&display=swap" rel="stylesheet">
+    <title>مملكة أفلانة الكونية ✨🌸</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --main-pink: #ffb3d9;
             --dark-pink: #ff4d94;
-            --soft-white: rgba(255, 255, 255, 0.85);
-            --bg-gradient: linear-gradient(180deg, #fff0f5 0%, #ffe4e1 100%);
+            --soft-white: rgba(255, 255, 255, 0.9);
+            --bg-grad: linear-gradient(135deg, #fff0f5 0%, #e6f7ff 100%);
         }
 
-        /* إعدادات الموبايل لمنع التمرير وتثبيت القياس */
+        /* تصفير الإعدادات لجعل الكود متوافق مع كل الشاشات */
         * {
             margin: 0; padding: 0; box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
             font-family: 'Tajawal', sans-serif;
+            user-select: none;
+        }
+
+        html, body {
+            height: 100%; width: 100%;
+            overflow: hidden; /* يمنع التمرير العشوائي في الأجهزة */
+            background: var(--bg-grad);
         }
 
         body {
-            background: var(--bg-gradient);
-            height: 100vh; width: 100vw;
-            overflow: hidden; /* يمنع التمرير */
-            display: flex; flex-direction: column;
-            align-items: center; position: relative;
+            display: flex; justify-content: center; align-items: center;
         }
 
-        /* خلفية القلوب المتحركة */
-        #heart-canvas {
-            position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%; z-index: 1;
+        /* خلفية سحرية متحركة */
+        #magic-bg {
+            position: absolute; inset: 0; z-index: 1;
         }
 
-        /* الحاوية الرئيسية للهاتف */
-        .app-container {
+        /* الحاوية المرنة التي تتكيف مع (موبايل / تابلت) */
+        .universal-card {
             position: relative; z-index: 10;
-            width: 90%; height: 95%;
-            margin-top: 5%;
+            width: 92%; max-width: 500px; /* عرض مثالي للموبايل والتابلت */
+            height: 90%; max-height: 800px;
+            background: var(--soft-white);
+            backdrop-filter: blur(10px);
+            border: 4px solid white;
+            border-radius: 40px;
+            box-shadow: 0 20px 40px rgba(255, 179, 217, 0.3);
             display: flex; flex-direction: column;
+            padding: clamp(15px, 4vw, 25px); /* حواف مرنة */
             gap: 15px;
         }
 
-        /* الهيدر الكيوت */
-        .header {
-            text-align: center; padding: 10px;
-            background: var(--soft-white);
-            border-radius: 20px;
-            border: 2px solid white;
-            box-shadow: 0 5px 15px rgba(255, 179, 217, 0.3);
+        /* الهيدر */
+        .top-bar {
+            text-align: center; padding-bottom: 10px;
+            border-bottom: 2px dashed var(--main-pink);
         }
+        .top-bar h1 { font-size: clamp(1.1rem, 5vw, 1.4rem); color: var(--dark-pink); }
 
-        .header h1 { font-size: 1.2rem; color: var(--dark-pink); }
-
-        /* منطقة الأرنوب التفاعلية */
-        .character-zone {
-            flex-grow: 1;
-            display: flex; flex-direction: column;
+        /* منطقة الأرنوب التفاعلية - تتمدد حسب المساحة المتوفرة */
+        .hero-area {
+            flex: 1; display: flex; flex-direction: column;
             justify-content: center; align-items: center;
+            gap: 10px;
         }
-
-        .bunny-emoji {
-            font-size: 80px;
-            animation: bounce 2s infinite ease-in-out;
-            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+        .character {
+            font-size: clamp(70px, 15vh, 110px);
+            animation: float 3s infinite ease-in-out;
+            cursor: pointer;
+            filter: drop-shadow(0 10px 15px rgba(255, 77, 148, 0.2));
         }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-
-        .bubble {
-            background: white; padding: 10px 20px;
-            border-radius: 20px; margin-top: 10px;
-            font-weight: bold; color: var(--dark-pink);
+        .talk-bubble {
+            background: white; padding: 10px 20px; border-radius: 20px;
+            color: var(--dark-pink); font-weight: 800;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            font-size: 0.9rem; position: relative;
+            font-size: clamp(0.8rem, 3vw, 1rem);
+            text-align: center;
         }
 
-        /* أزرار الذكريات الثلاثة (على مقاس الموبايل) */
-        .buttons-grid {
-            display: flex; flex-direction: column;
-            gap: 12px; margin-bottom: 20px;
+        /* شبكة الأزرار الثلاثة - ذكية جداً */
+        .actions-grid {
+            display: flex; flex-direction: column; gap: 12px;
         }
-
-        .cute-btn {
-            background: white;
-            border: 2px solid var(--main-pink);
-            padding: 18px; border-radius: 25px;
+        .action-btn {
+            background: white; border: 2px solid var(--main-pink);
+            padding: clamp(12px, 3vh, 20px); border-radius: 20px;
             display: flex; align-items: center; gap: 15px;
             cursor: pointer; transition: 0.2s;
             box-shadow: 0 4px 0 var(--main-pink);
         }
-
-        .cute-btn:active { transform: translateY(4px); box-shadow: none; }
-
+        .action-btn:active { transform: translateY(4px); box-shadow: none; }
+        
         .btn-icon {
-            font-size: 24px; background: #fff0f5;
-            width: 45px; height: 45px;
+            font-size: 24px; min-width: 45px; height: 45px;
+            background: #fff0f5; border-radius: 12px;
             display: flex; justify-content: center; align-items: center;
-            border-radius: 15px;
         }
+        .btn-info h3 { font-size: 0.95rem; color: var(--dark-pink); }
+        .btn-info p { font-size: 0.75rem; color: #999; }
 
-        .btn-text h3 { font-size: 1rem; color: var(--dark-pink); }
-        .btn-text p { font-size: 0.7rem; color: #888; }
-
-        /* مشغل الموسيقى البسيط */
-        .music-bar {
+        /* مشغل الموسيقى */
+        .player-bar {
             background: var(--dark-pink);
-            padding: 12px 20px; border-radius: 25px;
+            padding: 12px 18px; border-radius: 22px;
             display: flex; align-items: center; gap: 15px;
-            color: white; margin-bottom: 10px;
+            color: white;
+        }
+        .play-toggle {
+            background: white; border: none; width: 38px; height: 38px;
+            border-radius: 50%; color: var(--dark-pink); font-size: 16px;
+            cursor: pointer; flex-shrink: 0;
         }
 
-        .play-pause {
-            background: white; border: none;
-            width: 40px; height: 40px; border-radius: 50%;
-            color: var(--dark-pink); font-size: 18px;
+        /* نافذة الرسائل (Modal) */
+        #popup-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.4);
+            z-index: 1000; display: none; justify-content: center; align-items: center;
+            backdrop-filter: blur(5px);
         }
+        .popup-card {
+            width: 85%; max-width: 400px; background: white;
+            padding: 30px; border-radius: 30px; text-align: center;
+            border: 4px solid var(--main-pink); animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes pop { from { transform: scale(0.8); } to { transform: scale(1); } }
 
-        /* نافذة الرسائل */
-        #overlay {
-            position: fixed; inset: 0;
-            background: rgba(255, 179, 217, 0.85);
-            z-index: 1000; display: none;
-            justify-content: center; align-items: center;
-            backdrop-filter: blur(8px);
-        }
-
-        .modal {
-            width: 85%; background: white;
-            padding: 30px; border-radius: 35px;
-            text-align: center; border: 4px solid var(--main-pink);
-        }
     </style>
 </head>
 <body>
 
-    <canvas id="heart-canvas"></canvas>
+    <canvas id="magic-bg"></canvas>
 
-    <div class="app-container">
-        
-        <div class="header">
-            <h1>🌸 مملكة أفلانة السحرية 🌸</h1>
-        </div>
+    <div class="universal-card">
+        <header class="top-bar">
+            <h1>🌸 عالم أفلانة السحري 🌸</h1>
+        </header>
 
-        <div class="character-zone">
-            <div class="bunny-emoji" id="bunny">🐰</div>
-            <div class="bubble" id="msg">أهلاً يا أميرتي! ✨</div>
-        </div>
+        <section class="hero-area">
+            <div class="character" id="main-bunny">🐰</div>
+            <div class="talk-bubble" id="status-msg">نورتي دنيتج يا أميرتي! ✨</div>
+        </section>
 
-        <div class="buttons-grid">
-            
-            <div class="cute-btn" onclick="openBox('الصدفة الحلوة 📅', 'في هذا التاريخ [12/10/2023]، بدأت أجمل صدفة في حياتي، التاريخ اللي خلى دنيتي وردية بوجودج! ✨')">
+        <nav class="actions-grid">
+            <div class="action-btn" onclick="showMsg('الصدفة الحلوة 📅', 'في هذا التاريخ [12/10/2023]، بدأت أجمل صدفة في حياتي، اليوم اللي صار فيه كل شي أحلى بوجودج! 💖')">
                 <div class="btn-icon">📅</div>
-                <div class="btn-text">
-                    <h3>تاريخ الصدفة الحلوة</h3>
-                    <p>متى بدأت الحكاية؟</p>
+                <div class="btn-info">
+                    <h3>تاريخ الصدفة</h3>
+                    <p>أجمل يوم في التقويم</p>
                 </div>
             </div>
 
-            <div class="cute-btn" onclick="openBox('رسائل من القلب 💌', 'أنتِ مو بس صديقة، أنتِ غيمة حب تمطر على قلبي سعادة.. كل يوم وياج هو عيد! ❤️')">
+            <div class="action-btn" onclick="showMsg('رسائل حب وكذا 💌', 'أنتِ مو بس إنسانة غالية، أنتِ الروح اللي تخليني أبتسم دائماً.. أحبج حيل يا ألطف أفلانة! ❤️')">
                 <div class="btn-icon">💌</div>
-                <div class="btn-text">
+                <div class="btn-info">
                     <h3>رسائل حب وكذا</h3>
-                    <p>كلام من القلب لأجمل قلب</p>
+                    <p>كلام من أعماق قلبي</p>
                 </div>
             </div>
 
-            <div class="cute-btn" onclick="openBox('وعد أفلان 💍', 'وعدي لج أن أبقى دائماً الشخص اللي يسعدج، ونبقى سوى لأخر يوم بالعمر! 🌸')">
+            <div class="action-btn" onclick="showMsg('وعد للأبد 💍', 'وعدي لج يا أفلانة إننا نكبر سوى، ونبقى سوى بكل لحظة حلوة ومرة.. إيدج بإيدي دائماً! 🌸')">
                 <div class="btn-icon">✨</div>
-                <div class="btn-text">
+                <div class="btn-info">
                     <h3>وعد للأبد</h3>
-                    <p>عن مستقبلنا سوى</p>
+                    <p>عهدي لج طول العمر</p>
                 </div>
             </div>
+        </nav>
 
-        </div>
-
-        <div class="music-bar">
-            <button class="play-pause" onclick="togglePlay()" id="playBtn">▶</button>
+        <footer class="player-bar">
+            <button class="play-toggle" onclick="toggleAudio()" id="playIco">▶</button>
             <div style="flex-grow: 1;">
-                <p style="font-size: 0.8rem; font-weight: bold;">أغنية أفلانة المفضلة 🎵</p>
-                <div style="height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px; margin-top: 5px;">
-                    <div id="prog" style="height: 100%; width: 0%; background: white;"></div>
+                <p style="font-size: 0.75rem; font-weight: bold;">أغنية أفلانة 🎵</p>
+                <div style="height: 3px; background: rgba(255,255,255,0.3); border-radius: 2px; margin-top: 4px;">
+                    <div id="prog-line" style="height: 100%; width: 0%; background: white;"></div>
                 </div>
             </div>
-        </div>
-
+        </footer>
     </div>
 
-    <div id="overlay" onclick="closeBox()">
-        <div class="modal" onclick="event.stopPropagation()">
-            <h2 id="m-title" style="color: var(--dark-pink); margin-bottom: 15px;"></h2>
-            <p id="m-body" style="line-height: 1.6; color: #555;"></p>
-            <button onclick="closeBox()" style="margin-top: 20px; padding: 10px 25px; border-radius: 20px; border: none; background: var(--dark-pink); color: white; font-weight: bold;">إغلاق 🌸</button>
+    <div id="popup-overlay" onclick="hideMsg()">
+        <div class="popup-card" onclick="event.stopPropagation()">
+            <h2 id="p-title" style="color: var(--dark-pink); margin-bottom: 12px;"></h2>
+            <p id="p-body" style="color: #666; font-size: 1rem; line-height: 1.6;"></p>
+            <button onclick="hideMsg()" style="margin-top: 20px; padding: 10px 30px; border-radius: 15px; border: none; background: var(--dark-pink); color: white; font-weight: bold; cursor: pointer;">أغلقي يا جميلة 🌸</button>
         </div>
     </div>
 
-    <audio id="bg-music" loop>
+    <audio id="audio-player" loop>
         <source src="your_song.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        // محرك القلوب المتساقطة
-        const canvas = document.getElementById('heart-canvas');
+        // محرك الخلفية المتجاوب
+        const canvas = document.getElementById('magic-bg');
         const ctx = canvas.getContext('2d');
-        let hearts = [];
+        let particles = [];
 
         function init() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            hearts = [];
-            for(let i=0; i<30; i++) {
-                hearts.push({
+            particles = [];
+            const count = window.innerWidth < 600 ? 25 : 50; // تقليل العدد للموبايل لضمان السلاسة
+            for(let i=0; i<count; i++) {
+                particles.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
                     s: Math.random() * 15 + 10,
-                    v: Math.random() * 1.5 + 0.5
+                    v: Math.random() * 1 + 0.5,
+                    o: Math.random()
                 });
             }
         }
 
         function draw() {
             ctx.clearRect(0,0,canvas.width, canvas.height);
-            ctx.fillStyle = "#ffb3d9";
-            hearts.forEach(h => {
-                ctx.font = h.s + "px serif";
-                ctx.fillText("🌸", h.x, h.y);
-                h.y += h.v;
-                if(h.y > canvas.height) h.y = -20;
+            ctx.fillStyle = "rgba(255, 179, 217, 0.6)";
+            particles.forEach(p => {
+                ctx.font = p.s + "px serif";
+                ctx.fillText("🌸", p.x, p.y);
+                p.y += p.v;
+                if(p.y > canvas.height) p.y = -20;
             });
             requestAnimationFrame(draw);
         }
 
-        // التحكم في الأزرار والرسائل
-        function openBox(t, b) {
-            document.getElementById('m-title').innerText = t;
-            document.getElementById('m-body').innerText = b;
-            document.getElementById('overlay').style.display = 'flex';
+        // الوظائف
+        function showMsg(t, b) {
+            document.getElementById('p-title').innerText = t;
+            document.getElementById('p-body').innerText = b;
+            document.getElementById('popup-overlay').style.display = 'flex';
+        }
+        function hideMsg() { document.getElementById('popup-overlay').style.display = 'none'; }
+
+        const player = document.getElementById('audio-player');
+        function toggleAudio() {
+            const btn = document.getElementById('playIco');
+            if(player.paused) { player.play(); btn.innerText = "⏸"; }
+            else { player.pause(); btn.innerText = "▶"; }
         }
 
-        function closeBox() { document.getElementById('overlay').style.display = 'none'; }
-
-        // المشغل الموسيقي
-        const audio = document.getElementById('bg-music');
-        function togglePlay() {
-            const btn = document.getElementById('playBtn');
-            if(audio.paused) { audio.play(); btn.innerText = "⏸"; }
-            else { audio.pause(); btn.innerText = "▶"; }
-        }
-
-        audio.ontimeupdate = () => {
-            const p = (audio.currentTime / audio.duration) * 100;
-            document.getElementById('prog').style.width = p + "%";
+        player.ontimeupdate = () => {
+            const p = (player.currentTime / player.duration) * 100;
+            document.getElementById('prog-line').style.width = p + "%";
         };
 
-        // تفاعل الأرنوب عند الضغط
-        document.getElementById('bunny').onclick = function() {
-            this.style.transform = "scale(1.5)";
-            document.getElementById('msg').innerText = "يا روحي أنتي! 💖";
-            setTimeout(() => { 
-                this.style.transform = "scale(1)"; 
-                document.getElementById('msg').innerText = "أحبج حيل! ✨";
-            }, 500);
+        // تفاعل الأرنوب
+        document.getElementById('main-bunny').onclick = function() {
+            this.style.transform = "scale(1.3) rotate(10deg)";
+            document.getElementById('status-msg').innerText = "فديتج يا أحلى بنوتة! ✨";
+            setTimeout(() => {
+                this.style.transform = "scale(1)";
+                document.getElementById('status-msg').innerText = "أحبج للأبد! ❤️";
+            }, 600);
         };
 
         window.onload = () => { init(); draw(); };

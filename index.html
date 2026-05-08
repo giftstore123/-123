@@ -3,355 +3,217 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>بستان أفلانة السحري | v3.0 Professional</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
-    
+    <title>رحلة أفلان وأفلانة الكونية ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* --- 1. إعدادات النظام والأساسيات --- */
         :root {
-            --p-main: #ff1262;
-            --p-light: #ff6090;
-            --p-dark: #7a0932;
-            --gold: #ffca28;
-            --sky: #4fc3f7;
-            --bg-dark: #020205;
+            --space-bg: #0a0a2a;
+            --star-gold: #ffdf00;
+            --neon-pink: #ff007f;
+            --neon-blue: #00f2ff;
         }
 
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent; /* إلغاء التحديد الأزرق في الموبايل */
-            user-select: none; /* منع تحديد النصوص */
-            -webkit-user-select: none;
-        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; }
 
         body {
             margin: 0; padding: 0;
-            background: var(--bg-dark);
+            background: var(--space-bg);
             height: 100vh; width: 100vw;
-            display: flex; justify-content: center; align-items: center;
             font-family: 'Tajawal', sans-serif;
             overflow: hidden;
-            perspective: 1000px; /* للعمق الثلاثي الأبعاد */
+            color: white;
         }
 
-        /* --- 2. الخلفية المتحركة --- */
-        #star-field {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 0; pointer-events: none;
-        }
-
-        /* --- 3. حاوية الوردة الرئيسية (الهيكل الاحترافي) --- */
-        .master-garden {
-            position: relative;
-            width: 300px; height: 300px;
-            display: flex; justify-content: center; align-items: center;
-            z-index: 10;
-        }
-
-        /* الساق مع لمعان */
-        .botanical-stem {
-            position: absolute;
-            width: 16px; height: 400px;
-            background: linear-gradient(90deg, #1b5e20, #4caf50, #1b5e20);
-            top: 50px; border-radius: 15px;
-            z-index: 5;
-            box-shadow: 0 0 15px rgba(0,0,0,0.5);
-        }
-
-        /* قلب الوردة المتوهج */
-        .flower-heart {
-            position: absolute;
-            width: 90px; height: 90px;
-            background: radial-gradient(circle at 30% 30%, #fff176, #fbc02d, #f57f17);
-            border-radius: 50%;
-            z-index: 100;
-            box-shadow: 0 0 40px rgba(255, 193, 7, 0.6), inset -5px -5px 15px rgba(0,0,0,0.3);
-            cursor: pointer;
-            animation: pulse-heart 3s infinite ease-in-out;
-        }
-
-        @keyframes pulse-heart {
-            0%, 100% { transform: scale(1); filter: brightness(1); }
-            50% { transform: scale(1.05); filter: brightness(1.2); }
-        }
-
-        /* --- 4. تصميم البتلات الواقعي جداً --- */
-        .petal-container {
-            position: absolute;
-            width: 100%; height: 100%;
-            display: flex; justify-content: center; align-items: center;
-            z-index: 50;
-        }
-
-        .petal {
-            position: absolute;
-            width: 140px; height: 200px;
-            background: radial-gradient(ellipse at bottom left, var(--p-light), var(--p-main), var(--p-dark));
-            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
-            transform-origin: bottom center;
-            bottom: 50%; /* تبدأ من السنتر */
-            cursor: pointer;
-            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-            box-shadow: 5px 10px 30px rgba(0,0,0,0.5), inset 0 -10px 20px rgba(0,0,0,0.2);
-            border: 1px solid rgba(255,255,255,0.05);
-            pointer-events: auto; /* التأكد من أنها قابلة للضغط */
-        }
-
-        .petal:active {
-            transform: scale(0.9) !important;
-        }
-
-        /* --- 5. نظام الرسائل (Modal) --- */
-        #petal-overlay {
+        /* خلفية الفضاء المتحركة */
+        #universe {
             position: fixed; inset: 0;
-            background: rgba(0,0,0,0.96);
-            display: none; justify-content: center; align-items: center;
-            z-index: 2000;
+            background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
+            z-index: -1;
+        }
+
+        /* الصاروخ */
+        .rocket {
+            position: absolute;
+            bottom: 20px; left: 50%;
+            transform: translateX(-50%);
+            font-size: 50px;
+            z-index: 100;
+            transition: all 2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .rocket-launch { bottom: 120vh; filter: blur(2px); }
+
+        /* النجوم التفاعلية */
+        .star-msg {
+            position: absolute;
+            cursor: pointer;
+            font-size: 30px;
+            filter: drop-shadow(0 0 10px var(--star-gold));
+            transition: transform 0.3s, opacity 0.5s;
+            animation: twinkle 2s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            from { opacity: 0.5; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* مشغل الموسيقى الفضائي */
+        .space-player {
+            position: fixed; top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 90%; max-width: 350px;
+            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            border: 2px solid var(--neon-blue);
+            border-radius: 25px; padding: 30px;
+            text-align: center; z-index: 2000;
+            transition: all 0.8s ease;
         }
 
-        .message-card {
-            position: relative;
-            width: 85%; max-width: 350px; height: 500px;
-            background: radial-gradient(circle at center, var(--p-main), var(--p-dark));
-            border-radius: 40% 40% 60% 60% / 50% 50% 50% 50%;
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-            padding: 40px; text-align: center;
-            box-shadow: 0 0 100px var(--p-main);
-            color: white; border: 2px solid var(--p-light);
-            animation: emerge 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        .player-show { transform: translate(-50%, -50%) scale(1); }
+
+        .disk {
+            width: 120px; height: 120px;
+            border-radius: 50%;
+            border: 4px solid var(--neon-pink);
+            margin: 0 auto 20px;
+            background: url('https://cdn-icons-png.flaticon.com/512/1384/1384061.png') center/cover;
+            animation: spin 4s linear infinite;
+            animation-play-state: paused;
         }
 
-        @keyframes emerge {
-            0% { transform: scale(0) rotate(-20deg); opacity: 0; }
-            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* نافذة الرسائل */
+        #space-modal {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.9);
+            display: none; justify-content: center; align-items: center;
+            z-index: 3000;
         }
 
-        .message-text {
-            font-size: 1.8rem; font-weight: 700; line-height: 1.6;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        .nebula-card {
+            padding: 40px; background: linear-gradient(45deg, #4b0082, #00008b);
+            border-radius: 20px; border: 2px solid var(--star-gold);
+            text-align: center; max-width: 80%;
+            box-shadow: 0 0 30px var(--star-gold);
         }
 
-        /* --- 6. أداة السقي السحابة 🌧 --- */
-        #magic-cloud {
-            position: fixed; bottom: 40px; right: 40px;
-            font-size: 100px; cursor: grab;
-            filter: drop-shadow(0 0 20px rgba(255,255,255,0.8));
-            z-index: 1000; transition: transform 0.2s;
+        .btn-launch {
+            margin-top: 20px; padding: 10px 20px;
+            background: var(--neon-pink); color: white;
+            border: none; border-radius: 10px; font-weight: bold;
+            display: none; cursor: pointer;
         }
 
-        .rain-drop {
-            position: fixed; color: var(--sky); font-size: 20px;
-            pointer-events: none; z-index: 900;
-            animation: rain-fall 0.7s linear forwards;
-        }
-
-        @keyframes rain-fall {
-            0% { transform: translateY(0) scale(1); opacity: 1; }
-            100% { transform: translateY(150px) scale(0.5); opacity: 0; }
-        }
-
-        /* --- 7. تأثيرات الجسيمات --- */
-        .sparkle {
-            position: fixed; background: white; border-radius: 50%;
-            pointer-events: none; z-index: 1500;
-            animation: fly-out 1s ease-out forwards;
-        }
-
-        @keyframes fly-out {
-            0% { transform: translate(0,0); opacity: 1; }
-            100% { transform: translate(var(--tx), var(--ty)); opacity: 0; }
-        }
-
-        .hidden { display: none !important; }
-        .plucked { opacity: 0; transform: scale(0.5) translateY(100px) !important; pointer-events: none; }
-
+        .planet { position: absolute; border-radius: 50%; opacity: 0.6; z-index: -1; }
     </style>
 </head>
 <body>
 
-    <canvas id="star-field"></canvas>
+    <div id="universe"></div>
 
-    <div id="petal-overlay" onclick="closeModal()">
-        <div class="message-card">
-            <div class="message-text" id="active-msg"></div>
-            <div style="margin-top: 20px; font-size: 1rem; opacity: 0.7;">(انقري للإغلاق)</div>
+    <div class="planet" style="width: 100px; height: 100px; background: #ff5722; top: 10%; left: 10%; box-shadow: 0 0 20px #ff5722;"></div>
+    <div class="planet" style="width: 60px; height: 60px; background: #03a9f4; bottom: 20%; right: 15%; box-shadow: 0 0 20px #03a9f4;"></div>
+
+    <div id="stars-container"></div>
+
+    <div class="rocket" id="myRocket">🚀</div>
+
+    <div id="space-modal" onclick="closeModal()">
+        <div class="nebula-card">
+            <h2 id="msg-content"></h2>
+            <button class="btn-launch" id="launchBtn" onclick="launchSequence()">انطلاق الرحلة الموسيقية 🚀🎵</button>
+            <p id="hint" style="font-size: 12px; margin-top: 10px; opacity: 0.7;">(اضغطي للإغلاق)</p>
         </div>
     </div>
 
-    <div id="magic-cloud">🌧</div>
-
-    <div class="master-garden">
-        <div class="botanical-stem"></div>
-        <div class="petal-container" id="petals-root"></div>
-        <div class="flower-heart" onclick="heartReaction()"></div>
+    <div class="space-player" id="musicPlayer">
+        <div class="disk" id="disk"></div>
+        <h3 style="color: var(--neon-blue);">راديو المحطة الفضائية ❤️</h3>
+        <p>لحن أفلان وأفلانة</p>
+        <button onclick="toggleMusic()" style="background: var(--neon-pink); border: none; color: white; width: 60px; height: 60px; border-radius: 50%; font-size: 24px; cursor: pointer;">▶</button>
+        <audio id="audio" loop><source src="your_song.mp3" type="audio/mpeg"></audio>
     </div>
 
     <script>
-        /* --- 8. منطق البرمجة المتقدم --- */
-        const messages = [
-            "أنتِ النور في عتمتي ❤️",
-            "جمالكِ يغلب الورد 🌹",
-            "أفلانة.. ملكة قلبي 👑",
-            "ضحكتكِ هي لحني المفضل 🎵",
-            "كل يوم معكِ هو عيد ✨",
-            "أعشقكِ بجنون يا نجمتي 🌟",
-            "بُستاني لا يزهر إلا بكِ ❤️"
+        const msgs = [
+            "تاريخ تعارفنا هو بداية كوني ❤️",
+            "أنتِ النجمة التي تضيء سمائي 🌟",
+            "رحلتنا مستمرة للأبد يا ملكتي 👑",
+            "كل مجرة في الكون تشهد بحبي لكِ 🌌",
+            "أنتِ الكوكب الذي أريد الاستقرار فيه 🪐",
+            "ضحكتكِ هي صوت النجوم 🎵",
+            "أحبكِ بعدد نجوم هذا الكون ❤️"
         ];
 
-        let pluckedCount = 0;
-        const petalsRoot = document.getElementById('petals-root');
-        const cloud = document.getElementById('magic-cloud');
-        const overlay = document.getElementById('petal-overlay');
+        let starsClicked = 0;
+        const starsContainer = document.getElementById('stars-container');
 
-        // أ. بناء الوردة بدقة هندسية
-        function initFlower() {
-            petalsRoot.innerHTML = '';
-            pluckedCount = 0;
+        // 1. إنشاء النجوم في أماكن عشوائية
+        function createUniverse() {
+            starsContainer.innerHTML = '';
             for (let i = 0; i < 7; i++) {
-                const p = document.createElement('div');
-                p.className = 'petal';
-                const angle = i * (360 / 7);
-                p.style.transform = `rotate(${angle}deg)`;
+                const s = document.createElement('div');
+                s.className = 'star-msg';
+                s.innerHTML = '⭐';
+                s.style.left = Math.random() * 80 + 10 + '%';
+                s.style.top = Math.random() * 60 + 10 + '%';
+                s.style.animationDelay = Math.random() * 2 + 's';
                 
-                // إضافة حدث القطف
-                p.addEventListener('click', (e) => {
+                s.onclick = (e) => {
                     e.stopPropagation();
-                    openPetal(i, p);
-                });
-                
-                petalsRoot.appendChild(p);
+                    openStar(i, s);
+                };
+                starsContainer.appendChild(s);
             }
         }
 
-        // ب. فتح الورقة وعرض الرسالة
-        function openPetal(index, element) {
-            if (element.classList.contains('plucked')) return;
-            
-            createSparkles(window.innerWidth/2, window.innerHeight/2);
-            document.getElementById('active-msg').innerText = messages[index];
-            overlay.style.display = 'flex';
-            
-            element.classList.add('plucked');
-            pluckedCount++;
+        function openStar(index, el) {
+            document.getElementById('msg-content').innerText = msgs[index];
+            document.getElementById('space-modal').style.display = 'flex';
+            el.style.opacity = '0';
+            el.style.pointerEvents = 'none';
+            starsClicked++;
+
+            if (starsClicked === 7) {
+                document.getElementById('launchBtn').style.display = 'inline-block';
+                document.getElementById('hint').style.display = 'none';
+            }
         }
 
         function closeModal() {
-            overlay.style.display = 'none';
-            if (pluckedCount === 7) {
-                // تلميح للسقي
-                console.log("الوردة بحاجة للماء");
+            if (starsClicked < 7) {
+                document.getElementById('space-modal').style.display = 'none';
             }
         }
 
-        // ج. تأثير الجزيئات (Sparkles)
-        function createSparkles(x, y) {
-            for (let i = 0; i < 15; i++) {
-                const s = document.createElement('div');
-                s.className = 'sparkle';
-                s.style.width = s.style.height = Math.random() * 8 + 'px';
-                s.style.left = x + 'px';
-                s.style.top = y + 'px';
-                s.style.setProperty('--tx', (Math.random() - 0.5) * 300 + 'px');
-                s.style.setProperty('--ty', (Math.random() - 0.5) * 300 + 'px');
-                document.body.appendChild(s);
-                setTimeout(() => s.remove(), 1000);
-            }
-        }
-
-        // د. نظام السحب الاحترافي للسحابة
-        let isDragging = false;
-        cloud.addEventListener('mousedown', startDrag);
-        cloud.addEventListener('touchstart', startDrag, {passive: false});
-
-        function startDrag(e) {
-            isDragging = true;
-            e.preventDefault();
-        }
-
-        window.addEventListener('mousemove', handleDrag);
-        window.addEventListener('touchmove', handleDrag, {passive: false});
-
-        function handleDrag(e) {
-            if (!isDragging) return;
-            const x = e.clientX || e.touches[0].clientX;
-            const y = e.clientY || e.touches[0].clientY;
-
-            cloud.style.position = 'fixed';
-            cloud.style.left = (x - 50) + 'px';
-            cloud.style.top = (y - 50) + 'px';
-            cloud.style.right = 'auto'; cloud.style.bottom = 'auto';
-
-            // إنتاج المطر
-            if (Math.random() > 0.5) {
-                const d = document.createElement('div');
-                d.className = 'rain-drop'; d.innerText = '💧';
-                d.style.left = x + 'px'; d.style.top = (y + 40) + 'px';
-                document.body.appendChild(d);
-                setTimeout(() => d.remove(), 700);
-            }
-
-            // فحص التصادم للسقي
-            const flowerRect = document.querySelector('.master-garden').getBoundingClientRect();
-            const dist = Math.sqrt(Math.pow(x - (flowerRect.left + 150), 2) + Math.pow(y - (flowerRect.top + 150), 2));
+        // 2. تتابع الانطلاق
+        function launchSequence() {
+            document.getElementById('space-modal').style.display = 'none';
+            const r = document.getElementById('myRocket');
+            r.classList.add('rocket-launch');
             
-            if (dist < 120 && pluckedCount === 7) {
-                initFlower(); // إعادة إزهار
+            setTimeout(() => {
+                document.getElementById('musicPlayer').classList.add('player-show');
+            }, 1500);
+        }
+
+        // 3. مشغل الموسيقى
+        const track = document.getElementById('audio');
+        function toggleMusic() {
+            const disk = document.getElementById('disk');
+            if (track.paused) {
+                track.play();
+                disk.style.animationPlayState = 'running';
+            } else {
+                track.pause();
+                disk.style.animationPlayState = 'paused';
             }
         }
 
-        window.addEventListener('mouseup', () => isDragging = false);
-        window.addEventListener('touchend', () => isDragging = false);
-
-        // هـ. خلفية النجوم (Canvas)
-        const canvas = document.getElementById('star-field');
-        const ctx = canvas.getContext('2d');
-        let stars = [];
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-
-        function createStars() {
-            stars = [];
-            for (let i = 0; i < 150; i++) {
-                stars.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    size: Math.random() * 2,
-                    speed: Math.random() * 0.5
-                });
-            }
-        }
-
-        function drawStars() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "white";
-            stars.forEach(s => {
-                ctx.beginPath();
-                ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
-                ctx.fill();
-                s.y += s.speed;
-                if (s.y > canvas.height) s.y = 0;
-            });
-            requestAnimationFrame(drawStars);
-        }
-
-        window.addEventListener('resize', () => { resizeCanvas(); createStars(); });
-        resizeCanvas(); createStars(); drawStars();
-
-        // و. تفاعل القلب
-        function heartReaction() {
-            createSparkles(window.innerWidth/2, window.innerHeight/2);
-            document.querySelector('.flower-heart').style.transform = 'scale(1.2)';
-            setTimeout(() => document.querySelector('.flower-heart').style.transform = 'scale(1)', 200);
-        }
-
-        window.onload = initFlower;
-
+        window.onload = createUniverse;
     </script>
 </body>
 </html>

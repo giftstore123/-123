@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>وردة أفلانة ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --petal-color: #ff85a2;
+            --stem-color: #2d5a27;
+        }
+
+        body {
+            margin: 0; padding: 0;
+            display: flex; justify-content: center; align-items: center;
+            height: 100vh; background: #fff5f7;
+            font-family: 'Tajawal', sans-serif;
+            overflow: hidden; touch-action: none;
+        }
+
+        .garden {
+            position: relative;
+            width: 100%; height: 100%;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+        }
+
+        /* سطر الرسائل */
+        #message-box {
+            position: absolute; top: 15%;
+            width: 80%; text-align: center;
+            font-size: 1.5rem; font-weight: bold;
+            color: #d81b60; min-height: 3rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            transition: all 0.5s ease;
+        }
+
+        /* الوردة */
+        .flower {
+            position: relative; width: 150px; height: 150px;
+            z-index: 5;
+        }
+
+        .flower-center {
+            position: absolute; width: 50px; height: 50px;
+            background: #fcdb03; border-radius: 50%;
+            top: 50%; left: 50%; transform: translate(-50%, -50%);
+            z-index: 10; box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+        }
+
+        .stem {
+            position: absolute; width: 8px; height: 200px;
+            background: var(--stem-color);
+            top: 100px; left: 50%; transform: translateX(-50%);
+            border-radius: 5px; z-index: 1;
+        }
+
+        /* الأوراق */
+        .petal {
+            position: absolute; width: 60px; height: 90px;
+            background: var(--petal-color);
+            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+            top: 50%; left: 50%;
+            transform-origin: bottom center;
+            cursor: pointer;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: inset -5px -5px 15px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        /* توزيع الـ 7 ورقات */
+        .p1 { transform: translate(-50%, -100%) rotate(0deg); }
+        .p2 { transform: translate(-50%, -100%) rotate(51deg); }
+        .p3 { transform: translate(-50%, -100%) rotate(102deg); }
+        .p4 { transform: translate(-50%, -100%) rotate(153deg); }
+        .p5 { transform: translate(-50%, -100%) rotate(204deg); }
+        .p6 { transform: translate(-50%, -100%) rotate(255deg); }
+        .p7 { transform: translate(-50%, -100%) rotate(306deg); }
+
+        /* حالة القطف */
+        .plucked {
+            opacity: 0;
+            transform: translate(-50%, 100px) rotate(45deg) scale(0.5) !important;
+            pointer-events: none;
+        }
+
+        /* مرشة الماء */
+        #water-tool {
+            position: absolute; bottom: 10%; cursor: pointer;
+            font-size: 50px; display: none;
+            filter: drop-shadow(0 0 10px rgba(0,0,0,0.1));
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .watering-anim {
+            animation: pour 1s ease-in-out forwards;
+        }
+
+        @keyframes pour {
+            0% { transform: rotate(0deg); }
+            50% { transform: rotate(-45deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        .hint {
+            position: absolute; bottom: 5%; color: #999; font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="garden">
+    <div id="message-box">اقطفي أوراق الوردة لتريني ما أخفيه لكِ.. ❤️</div>
+
+    <div class="flower" id="flower-id">
+        <div class="flower-center"></div>
+        <div id="petals-container">
+            </div>
+        <div class="stem"></div>
+    </div>
+
+    <div id="water-tool" onclick="regrow()">🚿</div>
+    <div class="hint" id="hint-text">المسي الأوراق لقطفها</div>
+</div>
+
+<script>
+    // النصوص الخاصة بـ 7 ورقات (اكتب ما تريد هنا)
+    const messages = [
+        "أنتِ أجمل وردة في بستاني ❤️",
+        "كل ورقة تسقط، يزداد حبي لكِ 🌹",
+        "ضحكتكِ هي الضوء الذي ينير دربي ✨",
+        "أفلانة.. أنتِ النجم الساطع في سمائي 🌟",
+        "لا توجد كلمات تصف مدى غلاكِ عندي 💖",
+        "كوني بخير دائماً من أجل أفلان 🥰",
+        "انتهت الأوراق؟ اسقِني لأزهر لكِ مجدداً 🚿"
+    ];
+
+    let pluckedCount = 0;
+    const container = document.getElementById('petals-container');
+    const msgBox = document.getElementById('message-box');
+    const waterTool = document.getElementById('water-tool');
+    const hintText = document.getElementById('hint-text');
+
+    // دالة إنشاء الأوراق
+    function createFlower() {
+        container.innerHTML = "";
+        pluckedCount = 0;
+        waterTool.style.display = "none";
+        msgBox.innerText = "اقطفي أوراق الوردة لتريني ما أخفيه لكِ.. ❤️";
+        hintText.innerText = "المسي الأوراق لقطفها";
+
+        for (let i = 1; i <= 7; i++) {
+            const petal = document.createElement('div');
+            petal.className = `petal p${i}`;
+            petal.onclick = function() { pluck(this, i-1); };
+            container.appendChild(petal);
+        }
+    }
+
+    // دالة القطف
+    function pluck(element, index) {
+        if (element.classList.contains('plucked')) return;
+        
+        element.classList.add('plucked');
+        msgBox.innerText = messages[index];
+        pluckedCount++;
+
+        if (pluckedCount === 7) {
+            setTimeout(() => {
+                msgBox.innerText = "لقد ذبلت الوردة.. اسقِها لتعود!";
+                waterTool.style.display = "block";
+                hintText.innerText = "اضغطي على المرشة 🚿";
+            }, 1000);
+        }
+    }
+
+    // دالة إعادة النمو بالسقي
+    function regrow() {
+        waterTool.classList.add('watering-anim');
+        
+        // تأثير قطرات ماء وهمي
+        msgBox.innerText = "سقياً لقلبكِ الجميل.. ترقبوا الإزهار ✨";
+        
+        setTimeout(() => {
+            waterTool.classList.remove('watering-anim');
+            createFlower();
+        }, 1500);
+    }
+
+    // ابدأ بإنشاء الوردة عند التحميل
+    window.onload = createFlower;
+
+</script>
+</body>
+</html>

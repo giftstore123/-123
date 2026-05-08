@@ -8,72 +8,74 @@
     <style>
         :root {
             --p-color: radial-gradient(ellipse at bottom, #ff4d8d, #d81b60, #880e4f);
-            --bg: #05050a;
         }
 
         body {
             margin: 0; padding: 0;
             display: flex; justify-content: center; align-items: center;
-            height: 100vh; background: var(--bg);
+            height: 100vh; background: #05050a;
             font-family: 'Tajawal', sans-serif;
             overflow: hidden; touch-action: none;
         }
 
-        /* حاوية الوردة - الأب */
-        .flower {
-            position: relative;
-            width: 80px; height: 80px; /* حجم القلب تقريباً */
+        /* حاوية الوردة - نظام التمركز المطلق */
+        .flower-system {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px; height: 10px;
             display: flex; justify-content: center; align-items: center;
         }
 
-        .center {
+        .center-circle {
             position: absolute; width: 80px; height: 80px;
             background: radial-gradient(circle, #ffca28, #f57f17);
-            border-radius: 50%; z-index: 30;
-            box-shadow: 0 0 30px rgba(255, 193, 7, 0.7);
+            border-radius: 50%; z-index: 100;
+            box-shadow: 0 0 40px rgba(255, 193, 7, 0.8);
+            transform: translate(-50%, -50%); /* تمركز حقيقي */
+            top: 0; left: 0;
         }
 
-        .stem {
-            position: absolute; width: 15px; height: 300px;
-            background: linear-gradient(to bottom, #1b5e20, #388e3c, #0a240d);
-            top: 40px; border-radius: 20px; z-index: 1;
+        .green-stem {
+            position: absolute; width: 14px; height: 350px;
+            background: linear-gradient(to bottom, #1b5e20, #388e3c, #051006);
+            top: 0; left: -7px; /* نصف عرض الساق لتتمركز */
+            border-radius: 20px; z-index: 1;
         }
 
-        /* البتلات جوه نفس الحاوية */
         .petal {
             position: absolute;
             width: 130px; height: 180px;
             background: var(--p-color);
             border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
-            /* الحل الجذري: نقطة الدوران في أسفل المركز تماماً */
             transform-origin: bottom center;
-            /* تبدأ من منتصف الأب */
-            bottom: 40px; 
+            /* تبدأ من نقطة الصفر بالضبط */
+            bottom: 0; 
+            left: -65px; /* نصف عرض الورقة لتتمركز */
             cursor: pointer;
-            z-index: 20;
-            box-shadow: 2px 5px 20px rgba(0,0,0,0.6);
+            z-index: 50;
+            box-shadow: 2px 5px 25px rgba(0,0,0,0.7);
             transition: transform 0.4s ease, opacity 0.3s;
-            border: 0.5px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* نافذة الرسالة */
+        /* نافذة الرسائل */
         #modal {
             position: fixed; inset: 0;
-            background: rgba(0,0,0,0.92);
+            background: rgba(0,0,0,0.95);
             display: none; justify-content: center; align-items: center;
-            z-index: 2000; backdrop-filter: blur(12px);
+            z-index: 2000; backdrop-filter: blur(15px);
         }
 
-        .modal-p {
-            width: 320px; height: 480px;
+        .modal-content {
+            width: 85%; max-width: 320px; height: 480px;
             background: var(--p-color);
             border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%;
             display: flex; justify-content: center; align-items: center;
-            padding: 35px; text-align: center; color: white;
+            padding: 30px; text-align: center; color: white;
             font-size: 1.8rem; font-weight: bold;
             box-shadow: 0 0 60px #d81b60;
-            animation: zoomIn 0.5s ease-out;
-            line-height: 1.5;
+            animation: zoomIn 0.4s ease-out;
         }
 
         @keyframes zoomIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
@@ -81,18 +83,18 @@
         /* السحابة 🌧 */
         #cloud {
             position: absolute; bottom: 30px; right: 30px;
-            font-size: 90px; cursor: grab; z-index: 500;
+            font-size: 80px; cursor: grab; z-index: 500;
             filter: drop-shadow(0 0 15px white);
             user-select: none;
         }
 
-        .rain {
-            position: absolute; color: #4fc3f7; font-size: 25px;
-            animation: rainFall 0.6s linear infinite;
+        .drop {
+            position: absolute; color: #4fc3f7; font-size: 20px;
+            animation: fall 0.6s linear infinite;
             pointer-events: none; z-index: 400;
         }
 
-        @keyframes rainFall { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(120px); opacity: 0; } }
+        @keyframes fall { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(100px); opacity: 0; } }
 
         .hidden { display: none !important; }
     </style>
@@ -100,15 +102,15 @@
 <body>
 
 <div id="modal" onclick="this.style.display='none'">
-    <div class="modal-p" id="modal-text"></div>
+    <div class="modal-content" id="modal-text"></div>
 </div>
 
 <div id="cloud">🌧</div>
 
-<div class="flower" id="flower-id">
-    <div class="center"></div>
+<div class="flower-system" id="flower-center-point">
+    <div class="green-stem"></div>
     <div id="petals-container"></div>
-    <div class="stem"></div>
+    <div class="center-circle"></div>
 </div>
 
 <script>
@@ -146,9 +148,9 @@
         }
     }
 
-    // نظام سحب السحابة
+    // سحب السحابة
     let dragging = false;
-    cloud.onmousedown = cloud.ontouchstart = (e) => { dragging = true; e.preventDefault(); };
+    cloud.onmousedown = cloud.ontouchstart = (e) => { dragging = true; };
     window.onmouseup = window.ontouchend = () => dragging = false;
 
     window.onmousemove = window.ontouchmove = (e) => {
@@ -157,20 +159,18 @@
         const y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
         
         cloud.style.position = 'fixed';
-        cloud.style.left = (x - 45) + 'px';
-        cloud.style.top = (y - 45) + 'px';
+        cloud.style.left = (x - 40) + 'px';
+        cloud.style.top = (y - 40) + 'px';
         cloud.style.right = 'auto'; cloud.style.bottom = 'auto';
 
-        // المطر
-        const drop = document.createElement('div');
-        drop.className = 'rain'; drop.innerHTML = '💧';
-        drop.style.left = x + 'px'; drop.style.top = (y + 40) + 'px';
-        document.body.appendChild(drop);
-        setTimeout(() => drop.remove(), 600);
+        const d = document.createElement('div');
+        d.className = 'drop'; d.innerHTML = '💧';
+        d.style.left = x + 'px'; d.style.top = (y + 40) + 'px';
+        document.body.appendChild(d);
+        setTimeout(() => d.remove(), 600);
 
-        // فحص السقي
-        const target = document.getElementById('flower-id').getBoundingClientRect();
-        const dist = Math.sqrt(Math.pow(x - (target.left + target.width/2), 2) + Math.pow(y - (target.top + target.height/2), 2));
+        const target = document.getElementById('flower-center-point').getBoundingClientRect();
+        const dist = Math.sqrt(Math.pow(x - target.left, 2) + Math.pow(y - target.top, 2));
         
         if (dist < 100 && plucked === 7) createFlower();
     };

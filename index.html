@@ -2,219 +2,191 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>رحلة أفلان وأفلانة الكونية ✨</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رحلة النجوم: أفلان و أفلانة</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --space-bg: #0a0a2a;
-            --star-gold: #ffdf00;
-            --neon-pink: #ff007f;
-            --neon-blue: #00f2ff;
+            --bg-deep: #0b0d2b;
+            --neon-pink: #ff66cc;
+            --neon-blue: #00e5ff;
+            --star-yellow: #fff176;
         }
-
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; }
 
         body {
             margin: 0; padding: 0;
-            background: var(--space-bg);
-            height: 100vh; width: 100vw;
+            background: var(--bg-deep);
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px);
+            background-size: 550px 550px, 350px 350px;
             font-family: 'Tajawal', sans-serif;
-            overflow: hidden;
             color: white;
+            overflow-x: hidden;
+            display: flex; flex-direction: column; align-items: center;
         }
 
-        /* خلفية الفضاء المتحركة */
-        #universe {
-            position: fixed; inset: 0;
-            background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
-            z-index: -1;
+        /* العنوان العلوي */
+        header {
+            text-align: center; margin: 20px 0;
+            font-size: 1.5rem; text-shadow: 0 0 10px var(--neon-blue);
         }
 
-        /* الصاروخ */
-        .rocket {
-            position: absolute;
-            bottom: 20px; left: 50%;
-            transform: translateX(-50%);
-            font-size: 50px;
-            z-index: 100;
-            transition: all 2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        /* الحاوية الرئيسية للموقع (مثل البرواز في الصورة) */
+        .main-container {
+            position: relative;
+            width: 95%; max-width: 1000px;
+            height: 85vh;
+            border: 4px solid #1a237e;
+            border-radius: 30px;
+            background: rgba(13, 17, 51, 0.8);
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            padding: 20px;
+            overflow: hidden;
         }
 
-        .rocket-launch { bottom: 120vh; filter: blur(2px); }
+        /* 1. الصاروخ والركاب */
+        .rocket-unit {
+            position: absolute; top: 50px; left: 20px;
+            width: 250px; text-align: center;
+            animation: float 4s infinite ease-in-out;
+        }
+        .rocket-img { font-size: 80px; display: block; transform: rotate(-45deg); }
+        .passengers {
+            background: rgba(255,255,255,0.1); padding: 5px 15px;
+            border-radius: 20px; border: 1px solid var(--neon-blue);
+            font-size: 0.9rem; margin-top: 10px;
+        }
 
-        /* النجوم التفاعلية */
-        .star-msg {
-            position: absolute;
+        /* 2. تاريخ التعارف (المربع الكبير) */
+        .info-box {
+            position: absolute; top: 40px; right: 40px;
+            width: 280px; padding: 20px;
+            border: 3px solid var(--neon-pink);
+            border-radius: 20px; background: rgba(0,0,0,0.4);
+            box-shadow: 0 0 20px rgba(255, 102, 204, 0.3);
+            text-align: center;
+        }
+        .date-badge {
+            background: #fff; color: #0b0d2b;
+            padding: 5px 15px; border-radius: 10px;
+            font-weight: bold; font-size: 1.2rem;
+        }
+
+        /* 3. خريطة الرحلة (النجوم المتصلة) */
+        .journey-path {
+            position: absolute; bottom: 80px; left: 50px;
+            display: flex; align-items: center; gap: 15px;
+        }
+        .step-star {
+            font-size: 1.5rem; color: var(--star-yellow);
+            cursor: pointer; transition: 0.3s;
+        }
+        .step-star:hover { transform: scale(1.3); filter: drop-shadow(0 0 10px gold); }
+        .path-line { width: 40px; height: 2px; background: dashed var(--neon-blue); opacity: 0.5; }
+
+        /* 4. رسائل الحب (الأزرار الجانبية) */
+        .side-menu {
+            position: absolute; top: 220px; right: 40px;
+            display: flex; flex-direction: column; gap: 15px;
+        }
+        .menu-item {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--neon-blue);
+            padding: 15px 25px; border-radius: 15px;
+            cursor: pointer; transition: 0.3s;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .menu-item:hover { background: var(--neon-blue); color: #000; }
+
+        /* 5. استكشاف المستقبل (الكوكب) */
+        .planet-future {
+            position: absolute; bottom: 40px; right: 40px;
+            width: 150px; height: 150px;
+            background: linear-gradient(45deg, #ff5722, #ff9800);
+            border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; text-align: center;
+            font-weight: bold; border: 5px solid rgba(255,255,255,0.2);
+            box-shadow: inset -10px -10px 20px rgba(0,0,0,0.5);
             cursor: pointer;
-            font-size: 30px;
-            filter: drop-shadow(0 0 10px var(--star-gold));
-            transition: transform 0.3s, opacity 0.5s;
-            animation: twinkle 2s infinite alternate;
         }
 
-        @keyframes twinkle {
-            from { opacity: 0.5; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1.2); }
+        /* مشغل الموسيقى (يظهر عند الضغط) */
+        #music-modal {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.9);
+            display: none; justify-content: center; align-items: center; z-index: 1000;
+        }
+        .player-card {
+            background: var(--bg-deep); padding: 30px; border-radius: 30px;
+            border: 2px solid var(--neon-blue); text-align: center;
         }
 
-        /* مشغل الموسيقى الفضائي */
-        .space-player {
-            position: fixed; top: 50%; left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            width: 90%; max-width: 350px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            border: 2px solid var(--neon-blue);
-            border-radius: 25px; padding: 30px;
-            text-align: center; z-index: 2000;
-            transition: all 0.8s ease;
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(-45deg); }
+            50% { transform: translateY(-20px) rotate(-40deg); }
         }
 
-        .player-show { transform: translate(-50%, -50%) scale(1); }
-
-        .disk {
-            width: 120px; height: 120px;
-            border-radius: 50%;
-            border: 4px solid var(--neon-pink);
-            margin: 0 auto 20px;
-            background: url('https://cdn-icons-png.flaticon.com/512/1384/1384061.png') center/cover;
-            animation: spin 4s linear infinite;
-            animation-play-state: paused;
-        }
-
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-        /* نافذة الرسائل */
-        #space-modal {
-            position: fixed; inset: 0;
-            background: rgba(0,0,0,0.9);
-            display: none; justify-content: center; align-items: center;
-            z-index: 3000;
-        }
-
-        .nebula-card {
-            padding: 40px; background: linear-gradient(45deg, #4b0082, #00008b);
-            border-radius: 20px; border: 2px solid var(--star-gold);
-            text-align: center; max-width: 80%;
-            box-shadow: 0 0 30px var(--star-gold);
-        }
-
-        .btn-launch {
-            margin-top: 20px; padding: 10px 20px;
-            background: var(--neon-pink); color: white;
-            border: none; border-radius: 10px; font-weight: bold;
-            display: none; cursor: pointer;
-        }
-
-        .planet { position: absolute; border-radius: 50%; opacity: 0.6; z-index: -1; }
+        footer { margin-top: 20px; opacity: 0.8; }
     </style>
 </head>
 <body>
 
-    <div id="universe"></div>
+    <header>✨ ثيم رحلة النجوم: أفلان و أفلانة ✨</header>
 
-    <div class="planet" style="width: 100px; height: 100px; background: #ff5722; top: 10%; left: 10%; box-shadow: 0 0 20px #ff5722;"></div>
-    <div class="planet" style="width: 60px; height: 60px; background: #03a9f4; bottom: 20%; right: 15%; box-shadow: 0 0 20px #03a9f4;"></div>
+    <div class="main-container">
+        <div class="rocket-unit">
+            <span class="rocket-img">🚀</span>
+            <div class="passengers">خريطة الرحلة</div>
+        </div>
 
-    <div id="stars-container"></div>
+        <div class="info-box">
+            <div class="date-badge">12 / 10 / 2023</div>
+            <h3>تاريخ تعارفنا</h3>
+            <p style="font-size: 0.8rem;">اني ونجمي الساطع أفلانة</p>
+        </div>
 
-    <div class="rocket" id="myRocket">🚀</div>
+        <div class="side-menu">
+            <div class="menu-item" onclick="alert('أنتِ كل رسائل الحب ❤️')">
+                <span>📧</span> رسائل الحب
+            </div>
+            <div class="menu-item" onclick="openMusic()">
+                <span>🔭</span> ذكرياتنا الكونية
+            </div>
+        </div>
 
-    <div id="space-modal" onclick="closeModal()">
-        <div class="nebula-card">
-            <h2 id="msg-content"></h2>
-            <button class="btn-launch" id="launchBtn" onclick="launchSequence()">انطلاق الرحلة الموسيقية 🚀🎵</button>
-            <p id="hint" style="font-size: 12px; margin-top: 10px; opacity: 0.7;">(اضغطي للإغلاق)</p>
+        <div class="journey-path">
+            <span class="step-star">⭐</span><div class="path-line"></div>
+            <span class="step-star">⭐</span><div class="path-line"></div>
+            <span class="step-star">⭐</span><div class="path-line"></div>
+            <span class="step-star">⭐</span><div class="path-line"></div>
+            <span class="step-star" style="font-size: 2rem;">🌙</span>
+        </div>
+
+        <div class="planet-future" onclick="alert('مستقبلنا معاً سيكون الأجمل ✨')">
+            استكشاف<br>المستقبل
         </div>
     </div>
 
-    <div class="space-player" id="musicPlayer">
-        <div class="disk" id="disk"></div>
-        <h3 style="color: var(--neon-blue);">راديو المحطة الفضائية ❤️</h3>
-        <p>لحن أفلان وأفلانة</p>
-        <button onclick="toggleMusic()" style="background: var(--neon-pink); border: none; color: white; width: 60px; height: 60px; border-radius: 50%; font-size: 24px; cursor: pointer;">▶</button>
-        <audio id="audio" loop><source src="your_song.mp3" type="audio/mpeg"></audio>
+    <div id="music-modal" onclick="this.style.display='none'">
+        <div class="player-card">
+            <h2>🎵 ذكرياتنا الموسيقية</h2>
+            <p>أغنيتنا المفضلة</p>
+            <button onclick="toggleAudio()" style="width:60px; height:60px; border-radius:50%; border:none; background:var(--neon-pink); color:white; font-size:24px; cursor:pointer;">▶</button>
+            <audio id="audio-track" loop><source src="your_song.mp3" type="audio/mpeg"></audio>
+        </div>
     </div>
 
+    <footer>🚀 رحلتنا مستمرة... للأبد ❤️</footer>
+
     <script>
-        const msgs = [
-            "تاريخ تعارفنا هو بداية كوني ❤️",
-            "أنتِ النجمة التي تضيء سمائي 🌟",
-            "رحلتنا مستمرة للأبد يا ملكتي 👑",
-            "كل مجرة في الكون تشهد بحبي لكِ 🌌",
-            "أنتِ الكوكب الذي أريد الاستقرار فيه 🪐",
-            "ضحكتكِ هي صوت النجوم 🎵",
-            "أحبكِ بعدد نجوم هذا الكون ❤️"
-        ];
-
-        let starsClicked = 0;
-        const starsContainer = document.getElementById('stars-container');
-
-        // 1. إنشاء النجوم في أماكن عشوائية
-        function createUniverse() {
-            starsContainer.innerHTML = '';
-            for (let i = 0; i < 7; i++) {
-                const s = document.createElement('div');
-                s.className = 'star-msg';
-                s.innerHTML = '⭐';
-                s.style.left = Math.random() * 80 + 10 + '%';
-                s.style.top = Math.random() * 60 + 10 + '%';
-                s.style.animationDelay = Math.random() * 2 + 's';
-                
-                s.onclick = (e) => {
-                    e.stopPropagation();
-                    openStar(i, s);
-                };
-                starsContainer.appendChild(s);
-            }
+        function openMusic() {
+            document.getElementById('music-modal').style.display = 'flex';
         }
 
-        function openStar(index, el) {
-            document.getElementById('msg-content').innerText = msgs[index];
-            document.getElementById('space-modal').style.display = 'flex';
-            el.style.opacity = '0';
-            el.style.pointerEvents = 'none';
-            starsClicked++;
-
-            if (starsClicked === 7) {
-                document.getElementById('launchBtn').style.display = 'inline-block';
-                document.getElementById('hint').style.display = 'none';
-            }
+        function toggleAudio() {
+            const track = document.getElementById('audio-track');
+            track.paused ? track.play() : track.pause();
         }
-
-        function closeModal() {
-            if (starsClicked < 7) {
-                document.getElementById('space-modal').style.display = 'none';
-            }
-        }
-
-        // 2. تتابع الانطلاق
-        function launchSequence() {
-            document.getElementById('space-modal').style.display = 'none';
-            const r = document.getElementById('myRocket');
-            r.classList.add('rocket-launch');
-            
-            setTimeout(() => {
-                document.getElementById('musicPlayer').classList.add('player-show');
-            }, 1500);
-        }
-
-        // 3. مشغل الموسيقى
-        const track = document.getElementById('audio');
-        function toggleMusic() {
-            const disk = document.getElementById('disk');
-            if (track.paused) {
-                track.play();
-                disk.style.animationPlayState = 'running';
-            } else {
-                track.pause();
-                disk.style.animationPlayState = 'paused';
-            }
-        }
-
-        window.onload = createUniverse;
     </script>
 </body>
 </html>
-

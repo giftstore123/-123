@@ -3,199 +3,227 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>وردة أفلانة ❤️</title>
+    <title>حديقة أفلانة السحرية 🌹</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --petal-color: #ff85a2;
-            --stem-color: #2d5a27;
+            --petal-pink: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            --stem-green: linear-gradient(to bottom, #2d5a27, #1e3c1a);
         }
 
         body {
             margin: 0; padding: 0;
             display: flex; justify-content: center; align-items: center;
-            height: 100vh; background: #fff5f7;
+            height: 100vh; background: radial-gradient(circle, #fff5f7 0%, #ffe4e9 100%);
             font-family: 'Tajawal', sans-serif;
             overflow: hidden; touch-action: none;
         }
 
         .garden {
-            position: relative;
-            width: 100%; height: 100%;
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
+            position: relative; width: 100%; height: 100%;
+            display: flex; justify-content: center; align-items: center;
         }
 
-        /* سطر الرسائل */
-        #message-box {
-            position: absolute; top: 15%;
-            width: 80%; text-align: center;
-            font-size: 1.5rem; font-weight: bold;
-            color: #d81b60; min-height: 3rem;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-            transition: all 0.5s ease;
+        /* تعليمات علوية */
+        #top-info {
+            position: absolute; top: 30px; text-align: center;
+            color: #d81b60; font-weight: bold; font-size: 1.2rem;
+            z-index: 20; width: 100%;
         }
 
-        /* الوردة */
-        .flower {
-            position: relative; width: 150px; height: 150px;
-            z-index: 5;
+        /* منطقة الوردة */
+        .flower-area {
+            position: relative; width: 300px; height: 400px;
+            display: flex; justify-content: center; align-items: center;
         }
 
         .flower-center {
-            position: absolute; width: 50px; height: 50px;
-            background: #fcdb03; border-radius: 50%;
-            top: 50%; left: 50%; transform: translate(-50%, -50%);
-            z-index: 10; box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+            position: absolute; width: 60px; height: 60px;
+            background: radial-gradient(circle, #ffeb3b, #fbc02d);
+            border-radius: 50%; z-index: 10;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
         }
 
         .stem {
-            position: absolute; width: 8px; height: 200px;
-            background: var(--stem-color);
-            top: 100px; left: 50%; transform: translateX(-50%);
-            border-radius: 5px; z-index: 1;
+            position: absolute; width: 12px; height: 250px;
+            background: var(--stem-green);
+            top: 200px; border-radius: 10px; z-index: 1;
         }
 
-        /* الأوراق */
+        /* البتلات (الأوراق) */
         .petal {
-            position: absolute; width: 60px; height: 90px;
-            background: var(--petal-color);
+            position: absolute; width: 80px; height: 120px;
+            background: var(--petal-pink);
             border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
-            top: 50%; left: 50%;
             transform-origin: bottom center;
             cursor: pointer;
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: inset -5px -5px 15px rgba(0,0,0,0.1);
-            border: 1px solid rgba(255,255,255,0.3);
+            display: flex; justify-content: center; align-items: center;
+            padding: 10px; text-align: center;
+            font-size: 0.8rem; font-weight: bold; color: #880e4f;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.5s ease;
+            z-index: 5;
+            user-select: none;
         }
 
-        /* توزيع الـ 7 ورقات */
-        .p1 { transform: translate(-50%, -100%) rotate(0deg); }
-        .p2 { transform: translate(-50%, -100%) rotate(51deg); }
-        .p3 { transform: translate(-50%, -100%) rotate(102deg); }
-        .p4 { transform: translate(-50%, -100%) rotate(153deg); }
-        .p5 { transform: translate(-50%, -100%) rotate(204deg); }
-        .p6 { transform: translate(-50%, -100%) rotate(255deg); }
-        .p7 { transform: translate(-50%, -100%) rotate(306deg); }
+        /* نص مخفي داخل الورقة */
+        .petal span { opacity: 0; transition: opacity 0.3s; pointer-events: none; }
 
-        /* حالة القطف */
-        .plucked {
-            opacity: 0;
-            transform: translate(-50%, 100px) rotate(45deg) scale(0.5) !important;
+        /* أنيميشن السقوط */
+        .fallen {
+            position: fixed !important;
+            animation: fallAnimation 2s forwards ease-in-out;
             pointer-events: none;
+            z-index: 100;
         }
 
-        /* مرشة الماء */
-        #water-tool {
-            position: absolute; bottom: 10%; cursor: pointer;
-            font-size: 50px; display: none;
-            filter: drop-shadow(0 0 10px rgba(0,0,0,0.1));
-            animation: bounce 2s infinite;
+        .fallen span { opacity: 1 !important; font-size: 1rem; }
+
+        @keyframes fallAnimation {
+            0% { transform: translate(0, 0) rotate(var(--r)); }
+            30% { transform: translate(20px, 100px) rotate(90deg); }
+            60% { transform: translate(-20px, 300px) rotate(180deg); }
+            100% { transform: translate(0, 500px) rotate(220deg); opacity: 0; }
         }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+        /* المرشة (أداة السقي) */
+        #watering-can {
+            position: absolute; bottom: 40px; right: 40px;
+            font-size: 60px; cursor: grab; z-index: 50;
+            user-select: none; transition: transform 0.1s;
         }
 
-        .watering-anim {
-            animation: pour 1s ease-in-out forwards;
+        /* رذاذ الماء */
+        #water-drops {
+            position: absolute; display: none;
+            pointer-events: none; z-index: 45;
+            color: #4fc3f7; font-size: 20px;
         }
 
-        @keyframes pour {
-            0% { transform: rotate(0deg); }
-            50% { transform: rotate(-45deg); }
-            100% { transform: rotate(0deg); }
+        .droplet {
+            position: absolute; animation: dropRain 0.5s linear infinite;
         }
 
-        .hint {
-            position: absolute; bottom: 5%; color: #999; font-size: 0.9rem;
+        @keyframes dropRain {
+            0% { transform: translateY(0) opacity(1); }
+            100% { transform: translateY(50px) opacity(0); }
         }
     </style>
 </head>
 <body>
 
-<div class="garden">
-    <div id="message-box">اقطفي أوراق الوردة لتريني ما أخفيه لكِ.. ❤️</div>
-
-    <div class="flower" id="flower-id">
+<div class="garden" id="garden">
+    <div id="top-info">اقطفي أوراق وردتكِ يا أفلانة.. 🌹</div>
+    
+    <div class="flower-area" id="flower-target">
         <div class="flower-center"></div>
-        <div id="petals-container">
-            </div>
+        <div id="petals-container"></div>
         <div class="stem"></div>
     </div>
 
-    <div id="water-tool" onclick="regrow()">🚿</div>
-    <div class="hint" id="hint-text">المسي الأوراق لقطفها</div>
+    <div id="watering-can">🚿</div>
+    <div id="water-drops">💧<br>💧<br>💧</div>
 </div>
 
 <script>
-    // النصوص الخاصة بـ 7 ورقات (اكتب ما تريد هنا)
     const messages = [
-        "أنتِ أجمل وردة في بستاني ❤️",
-        "كل ورقة تسقط، يزداد حبي لكِ 🌹",
-        "ضحكتكِ هي الضوء الذي ينير دربي ✨",
-        "أفلانة.. أنتِ النجم الساطع في سمائي 🌟",
-        "لا توجد كلمات تصف مدى غلاكِ عندي 💖",
-        "كوني بخير دائماً من أجل أفلان 🥰",
-        "انتهت الأوراق؟ اسقِني لأزهر لكِ مجدداً 🚿"
+        "أنتِ نجمتي الساطعة 🌟",
+        "قلبي ينبض بكِ ❤️",
+        "أجمل وردة بالكون 🌹",
+        "أعشق ضحكتكِ 🤭",
+        "دائماً في بالي 💭",
+        "حبي لكِ لا ينتهي ♾️",
+        "أنتِ عالمي كله 🌍"
     ];
 
     let pluckedCount = 0;
-    const container = document.getElementById('petals-container');
-    const msgBox = document.getElementById('message-box');
-    const waterTool = document.getElementById('water-tool');
-    const hintText = document.getElementById('hint-text');
+    const petalsContainer = document.getElementById('petals-container');
+    const can = document.getElementById('watering-can');
+    const drops = document.getElementById('water-drops');
+    const flowerTarget = document.getElementById('flower-target');
 
-    // دالة إنشاء الأوراق
-    function createFlower() {
-        container.innerHTML = "";
+    function initFlower() {
+        petalsContainer.innerHTML = '';
         pluckedCount = 0;
-        waterTool.style.display = "none";
-        msgBox.innerText = "اقطفي أوراق الوردة لتريني ما أخفيه لكِ.. ❤️";
-        hintText.innerText = "المسي الأوراق لقطفها";
-
-        for (let i = 1; i <= 7; i++) {
+        document.getElementById('top-info').innerText = "اقطفي أوراق وردتكِ يا أفلانة.. 🌹";
+        
+        for (let i = 0; i < 7; i++) {
             const petal = document.createElement('div');
-            petal.className = `petal p${i}`;
-            petal.onclick = function() { pluck(this, i-1); };
-            container.appendChild(petal);
+            petal.className = 'petal';
+            const angle = (i * 51.4);
+            petal.style.transform = `rotate(${angle}deg) translateY(-60px)`;
+            petal.style.setProperty('--r', `${angle}deg`);
+            petal.innerHTML = `<span>${messages[i]}</span>`;
+            
+            petal.onclick = function() {
+                if(this.classList.contains('fallen')) return;
+                this.classList.add('fallen');
+                pluckedCount++;
+                if(pluckedCount === 7) {
+                    document.getElementById('top-info').innerText = "لقد ذبلت الوردة.. اسحبي المرشة واسقيها! 🚿";
+                }
+            };
+            petalsContainer.appendChild(petal);
         }
     }
 
-    // دالة القطف
-    function pluck(element, index) {
-        if (element.classList.contains('plucked')) return;
-        
-        element.classList.add('plucked');
-        msgBox.innerText = messages[index];
-        pluckedCount++;
+    // نظام السحب للمرشة (Drag System)
+    let isDragging = false;
 
-        if (pluckedCount === 7) {
-            setTimeout(() => {
-                msgBox.innerText = "لقد ذبلت الوردة.. اسقِها لتعود!";
-                waterTool.style.display = "block";
-                hintText.innerText = "اضغطي على المرشة 🚿";
-            }, 1000);
+    can.onmousedown = startDrag;
+    can.ontouchstart = startDrag;
+
+    function startDrag(e) {
+        isDragging = true;
+        can.style.cursor = 'grabbing';
+    }
+
+    window.onmousemove = drag;
+    window.ontouchmove = drag;
+
+    function drag(e) {
+        if (!isDragging) return;
+        
+        let x = e.clientX || e.touches[0].clientX;
+        let y = e.clientY || e.touches[0].clientY;
+
+        can.style.left = (x - 30) + 'px';
+        can.style.top = (y - 30) + 'px';
+        can.style.bottom = 'auto';
+        can.style.right = 'auto';
+
+        // التحقق من القرب من الوردة للسقي
+        const canRect = can.getBoundingClientRect();
+        const targetRect = flowerTarget.getBoundingClientRect();
+
+        if (
+            Math.abs(canRect.left - targetRect.left) < 150 &&
+            Math.abs(canRect.top - targetRect.top) < 150
+        ) {
+            drops.style.display = 'block';
+            drops.style.left = (canRect.left) + 'px';
+            drops.style.top = (canRect.top + 50) + 'px';
+            
+            if(pluckedCount === 7) {
+                setTimeout(() => {
+                    initFlower(); // إعادة نمو الوردة
+                }, 1000);
+            }
+        } else {
+            drops.style.display = 'none';
         }
     }
 
-    // دالة إعادة النمو بالسقي
-    function regrow() {
-        waterTool.classList.add('watering-anim');
-        
-        // تأثير قطرات ماء وهمي
-        msgBox.innerText = "سقياً لقلبكِ الجميل.. ترقبوا الإزهار ✨";
-        
-        setTimeout(() => {
-            waterTool.classList.remove('watering-anim');
-            createFlower();
-        }, 1500);
+    window.onmouseup = stopDrag;
+    window.ontouchend = stopDrag;
+
+    function stopDrag() {
+        isDragging = false;
+        can.style.cursor = 'grab';
+        drops.style.display = 'none';
     }
 
-    // ابدأ بإنشاء الوردة عند التحميل
-    window.onload = createFlower;
-
+    window.onload = initFlower;
 </script>
 </body>
 </html>

@@ -3,154 +3,242 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>حديقة أفلانة الموسيقية 🌸</title>
+    <title>حديقة أفلانة السحرية 🌸</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --p-main: #ff1262; --p-dark: #7a0932;
-        }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; }
-        body {
-            margin: 0; background: linear-gradient(135deg, #a5d6f7, #fce4ec);
-            height: 100vh; display: flex; justify-content: center; align-items: center;
-            font-family: 'Tajawal', sans-serif; overflow: hidden;
+            --p-main: #ff1262;
+            --p-dark: #7a0932;
+            --grass: #2e7d32;
+            --sky-top: #a5d6f7;
+            --sky-bottom: #e1f5fe;
         }
 
-        /* حاوية الوردة - SVG لضمان الدقة */
-        .flower-box {
-            position: relative; width: 350px; height: 500px;
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; }
+
+        body {
+            margin: 0; padding: 0;
+            background: linear-gradient(to bottom, var(--sky-top), var(--sky-bottom));
+            height: 100vh; width: 100vw;
+            display: flex; justify-content: center; align-items: center;
+            font-family: 'Tajawal', sans-serif;
+            overflow: hidden;
+        }
+
+        /* --- 1. الشمس الخفيفة --- */
+        .sun {
+            position: fixed; top: -50px; left: -50px;
+            width: 250px; height: 250px;
+            background: radial-gradient(circle, rgba(255,255,200,0.8) 0%, rgba(255,255,255,0) 70%);
+            filter: blur(20px);
+            z-index: 1;
+            animation: sunGlow 10s infinite alternate;
+        }
+
+        @keyframes sunGlow {
+            from { transform: scale(1); opacity: 0.6; }
+            to { transform: scale(1.2); opacity: 0.9; }
+        }
+
+        /* --- 2. الأعشاب والزهور المتحركة --- */
+        .landscape {
+            position: fixed; bottom: 0; width: 100%; height: 150px;
+            z-index: 2; pointer-events: none;
+        }
+
+        .grass-blade {
+            position: absolute; bottom: 0;
+            width: 2px; background: linear-gradient(to top, #1b5e20, #4caf50);
+            border-radius: 2px 2px 0 0;
+            transform-origin: bottom center;
+            animation: sway 3s infinite ease-in-out alternate;
+        }
+
+        .bg-flower {
+            position: absolute; bottom: 20px;
+            font-size: 20px;
+            transform-origin: bottom center;
+            animation: sway 4s infinite ease-in-out alternate;
+        }
+
+        @keyframes sway {
+            0% { transform: rotate(-5deg); }
+            100% { transform: rotate(5deg); }
+        }
+
+        /* --- 3. الوردة الرئيسية (نفس التصميم الاحترافي) --- */
+        .flower-stage {
+            position: relative; z-index: 10;
             display: flex; justify-content: center; align-items: center;
         }
 
-        svg { width: 100%; height: 100%; overflow: visible; }
+        .stem {
+            position: absolute; width: 12px; height: 300px;
+            background: linear-gradient(to right, #1b5e20, #2e7d32, #1b5e20);
+            top: 20px; border-radius: 10px; z-index: 5;
+        }
 
-        /* تصميم الورقة كمسار SVG */
         .petal {
-            fill: url(#petalGradient);
-            stroke: rgba(0,0,0,0.1);
+            position: absolute; width: 120px; height: 180px;
+            background: radial-gradient(ellipse at bottom, #ff4d8d, var(--p-main), var(--p-dark));
+            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+            transform-origin: bottom center; bottom: 20px;
+            cursor: pointer; z-index: 50;
+            box-shadow: 2px 5px 20px rgba(0,0,0,0.3);
+            transition: all 0.5s ease;
+        }
+
+        .center {
+            position: absolute; width: 80px; height: 80px;
+            background: radial-gradient(circle, #ffeb3b, #fbc02d);
+            border-radius: 50%; z-index: 100;
+            box-shadow: 0 0 20px rgba(255,193,7,0.5);
+        }
+
+        /* --- 4. مشغل الصوت --- */
+        .audio-player {
+            position: fixed; top: 20px; right: 20px;
+            background: rgba(255,255,255,0.3);
+            backdrop-filter: blur(10px);
+            padding: 10px; border-radius: 50px;
+            display: flex; align-items: center; gap: 10px;
+            z-index: 1000; border: 1px solid rgba(255,255,255,0.5);
             cursor: pointer;
-            transition: transform 0.5s, opacity 0.5s;
-            transform-box: fill-box;
-            transform-origin: bottom center;
         }
 
-        .petal:hover { filter: brightness(1.1); }
-
-        /* مشغل الموسيقى الزجاجي */
-        .player {
-            position: fixed; bottom: -100%; left: 50%; transform: translateX(-50%);
-            width: 90%; max-width: 340px; background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(15px); border-radius: 30px; padding: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.3);
-            text-align: center; transition: bottom 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 1000;
-        }
-        .player.active { bottom: 30px; }
-
-        /* نافذة الرسالة */
+        /* --- 5. الرسائل --- */
         #modal {
             position: fixed; inset: 0; background: rgba(0,0,0,0.85);
-            display: none; justify-content: center; align-items: center; z-index: 2000;
-        }
-        .modal-card {
-            width: 280px; padding: 30px; background: var(--p-main);
-            border-radius: 30px; color: white; text-align: center;
+            display: none; justify-content: center; align-items: center;
+            z-index: 2000; backdrop-filter: blur(10px);
         }
 
-        #cloud { position: fixed; top: 20px; right: 20px; font-size: 70px; cursor: grab; z-index: 500; }
-        .hidden { opacity: 0; pointer-events: none; transform: scale(0) !important; }
+        .petal-msg {
+            width: 300px; height: 450px;
+            background: radial-gradient(circle at bottom, #ff6090, var(--p-main));
+            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+            display: flex; justify-content: center; align-items: center;
+            padding: 30px; text-align: center; color: white;
+            font-size: 1.8rem; font-weight: bold;
+            box-shadow: 0 0 50px var(--p-main);
+            animation: pop 0.4s ease-out;
+        }
+
+        @keyframes pop { 0% { transform: scale(0.5); } 100% { transform: scale(1); } }
+
+        #cloud { position: fixed; bottom: 30px; right: 30px; font-size: 80px; cursor: grab; z-index: 500; }
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
-    <div id="cloud">🌧</div>
+    <div class="sun"></div>
 
-    <div class="flower-box">
-        <svg viewBox="0 0 200 400">
-            <defs>
-                <linearGradient id="stemGradient" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stop-color="#1b5e20" />
-                    <stop offset="50%" stop-color="#388e3c" />
-                    <stop offset="100%" stop-color="#1b5e20" />
-                </linearGradient>
-                <radialGradient id="petalGradient" cx="50%" cy="100%" r="100%">
-                    <stop offset="0%" stop-color="#ff4d8d" />
-                    <stop offset="100%" stop-color="#7a0932" />
-                </radialGradient>
-            </defs>
-            
-            <rect x="95" y="150" width="10" height="250" rx="5" fill="url(#stemGradient)" />
-            
-            <g id="petals-group"></g>
-            
-            <circle cx="100" cy="150" r="35" fill="#fbc02d" stroke="#f57f17" stroke-width="2" />
-        </svg>
+    <div class="audio-player" onclick="toggleAudio()">
+        <span id="audio-icon">🎵</span>
+        <span style="font-size: 12px; font-weight: bold;">موسيقى الحديقة</span>
     </div>
+
+    <audio id="bg-music" loop>
+        <source src="space_song.mp3" type="audio/mpeg">
+    </audio>
 
     <div id="modal" onclick="this.style.display='none'">
-        <div class="modal-card">
-            <h2 id="modal-text"></h2>
-            <button id="gift-btn" style="display:none; margin-top:15px; padding:10px 20px; border-radius:20px; border:none; font-weight:bold;" onclick="showPlayer()">افتحي الهدية الموسيقية 🎵</button>
-        </div>
+        <div class="petal-msg" id="modal-text"></div>
     </div>
 
-    <div class="player" id="music-player">
-        <h3>لحن الحب لأفلانة ❤️</h3>
-        <button onclick="toggleMusic()" style="width:60px; height:60px; border-radius:50%; border:none; background:var(--p-main); color:white; font-size:24px;">▶</button>
-        <audio id="audio" loop><source src="your_song.mp3" type="audio/mpeg"></audio>
+    <div id="cloud">🌧</div>
+
+    <div class="flower-stage" id="flower-target">
+        <div class="stem"></div>
+        <div id="petals-container"></div>
+        <div class="center"></div>
     </div>
+
+    <div class="landscape" id="landscape"></div>
 
     <script>
-        const msgs = ["نور عيني ❤️", "جميلة كوردة 🌹", "ملكة قلبي 👑", "لحني المفضل 🎵", "عيدي الدائم ✨", "نجمتي اللامعة 🌟", "أحبكِ جداً ❤️"];
-        let plucked = 0;
-        const group = document.getElementById('petals-group');
+        const msgs = [
+            "أنتِ النور في عتمتي ❤️", "جمالكِ يغلب الورد 🌹",
+            "أفلانة.. ملكة قلبي 👑", "ضحكتكِ هي لحني المفضل 🎵",
+            "كل يوم معكِ هو عيد ✨", "أعشقكِ بجنون يا نجمتي 🌟",
+            "بُستاني لا يزهر إلا بكِ ❤️"
+        ];
 
-        function drawFlower() {
-            group.innerHTML = '';
+        let plucked = 0;
+        const music = document.getElementById('bg-music');
+        let isPlaying = false;
+
+        function toggleAudio() {
+            if(!isPlaying) {
+                music.play();
+                document.getElementById('audio-icon').innerText = "⏸️";
+            } else {
+                music.pause();
+                document.getElementById('audio-icon').innerText = "🎵";
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // توليد الأعشاب والزهور العشوائية
+        function buildLandscape() {
+            const ls = document.getElementById('landscape');
+            for(let i=0; i<60; i++) {
+                const grass = document.createElement('div');
+                grass.className = 'grass-blade';
+                grass.style.left = Math.random() * 100 + '%';
+                grass.style.height = (Math.random() * 50 + 40) + 'px';
+                grass.style.animationDelay = Math.random() * 2 + 's';
+                ls.appendChild(grass);
+            }
+            const flowers = ['🌸', '🌼', '🌷', '✨'];
+            for(let i=0; i<15; i++) {
+                const f = document.createElement('div');
+                f.className = 'bg-flower';
+                f.innerText = flowers[Math.floor(Math.random() * flowers.length)];
+                f.style.left = Math.random() * 100 + '%';
+                f.style.animationDelay = Math.random() * 3 + 's';
+                ls.appendChild(f);
+            }
+        }
+
+        function createFlower() {
+            const container = document.getElementById('petals-container');
+            container.innerHTML = '';
             plucked = 0;
-            document.getElementById('music-player').classList.remove('active');
-            for(let i=0; i<7; i++) {
-                const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
-                // رسم بتلة احترافية
-                p.setAttribute("d", "M100,150 Q130,50 100,20 Q70,50 100,150");
-                p.setAttribute("class", "petal");
+            for (let i = 0; i < 7; i++) {
+                const p = document.createElement('div');
+                p.className = 'petal';
                 p.style.transform = `rotate(${i * (360/7)}deg)`;
-                
-                p.onclick = () => {
+                p.onclick = (e) => {
+                    e.stopPropagation();
                     document.getElementById('modal-text').innerText = msgs[i];
                     document.getElementById('modal').style.display = 'flex';
                     p.classList.add('hidden');
                     plucked++;
-                    if(plucked === 7) document.getElementById('gift-btn').style.display = 'inline-block';
                 };
-                group.appendChild(p);
+                container.appendChild(p);
             }
         }
 
-        function showPlayer() {
-            document.getElementById('modal').style.display = 'none';
-            document.getElementById('music-player').classList.add('active');
-        }
-
-        function toggleMusic() {
-            const a = document.getElementById('audio');
-            a.paused ? a.play() : a.pause();
-        }
-
-        // السحابة للسقي
-        let drag = false;
+        // نظام السحب للسحابة
+        let dragging = false;
         const cloud = document.getElementById('cloud');
-        cloud.onmousedown = cloud.ontouchstart = () => drag = true;
-        window.onmouseup = window.ontouchend = () => drag = false;
+        cloud.onmousedown = cloud.ontouchstart = (e) => { dragging = true; music.play(); isPlaying=true; };
+        window.onmouseup = window.ontouchend = () => dragging = false;
         window.onmousemove = window.ontouchmove = (e) => {
-            if(!drag) return;
+            if (!dragging) return;
             const x = e.clientX || e.touches[0].clientX;
             const y = e.clientY || e.touches[0].clientY;
-            cloud.style.left = x - 35 + 'px'; cloud.style.top = y - 35 + 'px';
-            if(Math.abs(x - window.innerWidth/2) < 50 && plucked === 7) drawFlower();
-        }
+            cloud.style.position = 'fixed';
+            cloud.style.left = (x - 40) + 'px';
+            cloud.style.top = (y - 40) + 'px';
+            const target = document.getElementById('flower-target').getBoundingClientRect();
+            if (Math.abs(x - (target.left + target.width/2)) < 80 && plucked === 7) createFlower();
+        };
 
-        drawFlower();
+        window.onload = () => { buildLandscape(); createFlower(); };
     </script>
 </body>
 </html>

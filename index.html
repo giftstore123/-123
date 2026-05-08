@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>مملكة أفلانة الكونية ✨🌸</title>
+    <title>عالم أفلانة السحري 🌸</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --main-pink: #ffb3d9;
-            --dark-pink: #ff4d94;
-            --soft-white: rgba(255, 255, 255, 0.9);
-            --bg-grad: linear-gradient(135deg, #fff0f5 0%, #e6f7ff 100%);
+            --pink-light: #ffebf5;
+            --pink-main: #ffb3d9;
+            --pink-dark: #ff4d94;
+            --glass: rgba(255, 255, 255, 0.8);
         }
 
-        /* تصفير الإعدادات لجعل الكود متوافق مع كل الشاشات */
+        /* تنسيق يضمن العمل على الموبايل والتابلت والكمبيوتر */
         * {
             margin: 0; padding: 0; box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
@@ -22,203 +22,143 @@
             user-select: none;
         }
 
-        html, body {
-            height: 100%; width: 100%;
-            overflow: hidden; /* يمنع التمرير العشوائي في الأجهزة */
-            background: var(--bg-grad);
-        }
-
-        body {
+        body, html {
+            height: 100%; width: 100%; overflow: hidden;
+            background: linear-gradient(135deg, #fff0f5 0%, #e6f7ff 100%);
             display: flex; justify-content: center; align-items: center;
         }
 
-        /* خلفية سحرية متحركة */
-        #magic-bg {
-            position: absolute; inset: 0; z-index: 1;
-        }
+        #bg-canvas { position: absolute; inset: 0; z-index: 1; }
 
-        /* الحاوية المرنة التي تتكيف مع (موبايل / تابلت) */
-        .universal-card {
+        /* حاوية مرنة تتكيف مع كل الشاشات */
+        .main-card {
             position: relative; z-index: 10;
-            width: 92%; max-width: 500px; /* عرض مثالي للموبايل والتابلت */
-            height: 90%; max-height: 800px;
-            background: var(--soft-white);
-            backdrop-filter: blur(10px);
-            border: 4px solid white;
-            border-radius: 40px;
-            box-shadow: 0 20px 40px rgba(255, 179, 217, 0.3);
+            width: 90%; max-width: 450px; height: 85%; max-height: 750px;
+            background: var(--glass); backdrop-filter: blur(15px);
+            border: 4px solid white; border-radius: 40px;
             display: flex; flex-direction: column;
-            padding: clamp(15px, 4vw, 25px); /* حواف مرنة */
-            gap: 15px;
+            padding: 20px; gap: 15px;
+            box-shadow: 0 15px 35px rgba(255, 179, 217, 0.3);
         }
 
-        /* الهيدر */
-        .top-bar {
-            text-align: center; padding-bottom: 10px;
-            border-bottom: 2px dashed var(--main-pink);
-        }
-        .top-bar h1 { font-size: clamp(1.1rem, 5vw, 1.4rem); color: var(--dark-pink); }
+        .header { text-align: center; border-bottom: 2px dashed var(--pink-main); padding-bottom: 10px; }
+        .header h1 { font-size: 1.3rem; color: var(--pink-dark); }
 
-        /* منطقة الأرنوب التفاعلية - تتمدد حسب المساحة المتوفرة */
-        .hero-area {
+        .hero {
             flex: 1; display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-            gap: 10px;
+            justify-content: center; align-items: center; gap: 10px;
         }
         .character {
-            font-size: clamp(70px, 15vh, 110px);
-            animation: float 3s infinite ease-in-out;
-            cursor: pointer;
+            font-size: 100px; cursor: pointer; transition: 0.3s;
             filter: drop-shadow(0 10px 15px rgba(255, 77, 148, 0.2));
+            animation: bounce 3s infinite ease-in-out;
         }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
 
-        .talk-bubble {
+        .bubble {
             background: white; padding: 10px 20px; border-radius: 20px;
-            color: var(--dark-pink); font-weight: 800;
+            color: var(--pink-dark); font-weight: 900; font-size: 0.9rem;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            font-size: clamp(0.8rem, 3vw, 1rem);
-            text-align: center;
         }
 
-        /* شبكة الأزرار الثلاثة - ذكية جداً */
-        .actions-grid {
-            display: flex; flex-direction: column; gap: 12px;
+        /* الأزرار الثلاثة */
+        .btns { display: flex; flex-direction: column; gap: 10px; }
+        .btn {
+            background: white; border: 2px solid var(--pink-main);
+            padding: 15px; border-radius: 20px; display: flex;
+            align-items: center; gap: 15px; cursor: pointer;
+            box-shadow: 0 4px 0 var(--pink-main); transition: 0.2s;
         }
-        .action-btn {
-            background: white; border: 2px solid var(--main-pink);
-            padding: clamp(12px, 3vh, 20px); border-radius: 20px;
-            display: flex; align-items: center; gap: 15px;
-            cursor: pointer; transition: 0.2s;
-            box-shadow: 0 4px 0 var(--main-pink);
-        }
-        .action-btn:active { transform: translateY(4px); box-shadow: none; }
-        
-        .btn-icon {
-            font-size: 24px; min-width: 45px; height: 45px;
-            background: #fff0f5; border-radius: 12px;
-            display: flex; justify-content: center; align-items: center;
-        }
-        .btn-info h3 { font-size: 0.95rem; color: var(--dark-pink); }
-        .btn-info p { font-size: 0.75rem; color: #999; }
+        .btn:active { transform: translateY(4px); box-shadow: none; }
+        .icon { font-size: 22px; min-width: 40px; height: 40px; background: var(--pink-light); border-radius: 12px; display: flex; justify-content: center; align-items: center; }
+        .info h3 { font-size: 0.9rem; color: var(--pink-dark); }
+        .info p { font-size: 0.7rem; color: #999; }
 
         /* مشغل الموسيقى */
-        .player-bar {
-            background: var(--dark-pink);
-            padding: 12px 18px; border-radius: 22px;
-            display: flex; align-items: center; gap: 15px;
-            color: white;
+        .player {
+            background: var(--pink-dark); padding: 12px; border-radius: 25px;
+            display: flex; align-items: center; gap: 15px; color: white;
         }
-        .play-toggle {
-            background: white; border: none; width: 38px; height: 38px;
-            border-radius: 50%; color: var(--dark-pink); font-size: 16px;
-            cursor: pointer; flex-shrink: 0;
+        .play-btn {
+            background: white; border: none; width: 35px; height: 35px;
+            border-radius: 50%; color: var(--pink-dark); cursor: pointer;
         }
 
-        /* نافذة الرسائل (Modal) */
-        #popup-overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.4);
+        /* نافذة الرسائل */
+        #modal {
+            position: fixed; inset: 0; background: rgba(255, 179, 217, 0.8);
             z-index: 1000; display: none; justify-content: center; align-items: center;
-            backdrop-filter: blur(5px);
         }
-        .popup-card {
-            width: 85%; max-width: 400px; background: white;
-            padding: 30px; border-radius: 30px; text-align: center;
-            border: 4px solid var(--main-pink); animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        .modal-card {
+            width: 80%; max-width: 350px; background: white; padding: 25px;
+            border-radius: 30px; text-align: center; border: 4px solid var(--pink-main);
         }
-        @keyframes pop { from { transform: scale(0.8); } to { transform: scale(1); } }
-
     </style>
 </head>
 <body>
 
-    <canvas id="magic-bg"></canvas>
+    <canvas id="bg-canvas"></canvas>
 
-    <div class="universal-card">
-        <header class="top-bar">
-            <h1>🌸 عالم أفلانة السحري 🌸</h1>
-        </header>
+    <div class="main-card">
+        <div class="header"><h1>🌸 مملكة أفلانة 🌸</h1></div>
 
-        <section class="hero-area">
-            <div class="character" id="main-bunny">🐰</div>
-            <div class="talk-bubble" id="status-msg">نورتي دنيتج يا أميرتي! ✨</div>
-        </section>
+        <div class="hero">
+            <div class="character" id="bunny">🐰</div>
+            <div class="bubble" id="talk">نورتي يا روحي! ✨</div>
+        </div>
 
-        <nav class="actions-grid">
-            <div class="action-btn" onclick="showMsg('الصدفة الحلوة 📅', 'في هذا التاريخ [12/10/2023]، بدأت أجمل صدفة في حياتي، اليوم اللي صار فيه كل شي أحلى بوجودج! 💖')">
-                <div class="btn-icon">📅</div>
-                <div class="btn-info">
-                    <h3>تاريخ الصدفة</h3>
-                    <p>أجمل يوم في التقويم</p>
-                </div>
+        <div class="btns">
+            <div class="btn" onclick="pop('الصدفة الحلوة 📅', 'في هذا التاريخ [حسب طلب الزبون]، نص رسالة ويا التاريخ حسب طلب الزبون! 💖')">
+                <div class="icon">📅</div>
+                <div class="info"><h3>تاريخ الصدفة</h3><p>أجمل يوم بالتقويم</p></div>
             </div>
-
-            <div class="action-btn" onclick="showMsg('رسائل حب وكذا 💌', 'أنتِ مو بس إنسانة غالية، أنتِ الروح اللي تخليني أبتسم دائماً.. أحبج حيل يا ألطف أفلانة! ❤️')">
-                <div class="btn-icon">💌</div>
-                <div class="btn-info">
-                    <h3>رسائل حب وكذا</h3>
-                    <p>كلام من أعماق قلبي</p>
-                </div>
+            <div class="btn" onclick="pop('رسائل حب 💌', 'نص حسب طلب الزبون! ❤️')">
+                <div class="icon">💌</div>
+                <div class="info"><h3>رسائل حب وكذا</h3><p>كلام من أعماق قلبي</p></div>
             </div>
-
-            <div class="action-btn" onclick="showMsg('وعد للأبد 💍', 'وعدي لج يا أفلانة إننا نكبر سوى، ونبقى سوى بكل لحظة حلوة ومرة.. إيدج بإيدي دائماً! 🌸')">
-                <div class="btn-icon">✨</div>
-                <div class="btn-info">
-                    <h3>وعد للأبد</h3>
-                    <p>عهدي لج طول العمر</p>
-                </div>
+            <div class="btn" onclick="pop('وعد للأبد 💍','نص حسب طلب الزبون! 🌸')">
+                <div class="icon">✨</div>
+                <div class="info"><h3>وعد للأبد</h3><p>عهدي لج طول العمر</p></div>
             </div>
-        </nav>
+        </div>
 
-        <footer class="player-bar">
-            <button class="play-toggle" onclick="toggleAudio()" id="playIco">▶</button>
-            <div style="flex-grow: 1;">
-                <p style="font-size: 0.75rem; font-weight: bold;">أغنية أفلانة 🎵</p>
-                <div style="height: 3px; background: rgba(255,255,255,0.3); border-radius: 2px; margin-top: 4px;">
-                    <div id="prog-line" style="height: 100%; width: 0%; background: white;"></div>
-                </div>
+        <div class="player">
+            <button class="play-btn" onclick="playMusic()" id="pBtn">▶</button>
+            <div style="flex:1">
+                <p style="font-size:0.7rem; font-weight:bold">أغنية أفلانة 🎵</p>
+                <div style="height:3px; background:rgba(255,255,255,0.3); margin-top:5px"><div id="bar" style="width:0%; height:100%; background:white"></div></div>
             </div>
-        </footer>
-    </div>
-
-    <div id="popup-overlay" onclick="hideMsg()">
-        <div class="popup-card" onclick="event.stopPropagation()">
-            <h2 id="p-title" style="color: var(--dark-pink); margin-bottom: 12px;"></h2>
-            <p id="p-body" style="color: #666; font-size: 1rem; line-height: 1.6;"></p>
-            <button onclick="hideMsg()" style="margin-top: 20px; padding: 10px 30px; border-radius: 15px; border: none; background: var(--dark-pink); color: white; font-weight: bold; cursor: pointer;">أغلقي يا جميلة 🌸</button>
         </div>
     </div>
 
-    <audio id="audio-player" loop>
-        <source src="your_song.mp3" type="audio/mpeg">
+    <div id="modal" onclick="closePop()">
+        <div class="modal-card" onclick="event.stopPropagation()">
+            <h2 id="mTitle" style="color:var(--pink-dark); margin-bottom:10px"></h2>
+            <p id="mBody" style="color:#666; line-height:1.5"></p>
+            <button onclick="closePop()" style="margin-top:15px; padding:8px 20px; border-radius:15px; border:none; background:var(--pink-dark); color:white; font-weight:bold">إغلاق 🌸</button>
+        </div>
+    </div>
+
+    <audio id="track" loop>
+        <source src="music.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        // محرك الخلفية المتجاوب
-        const canvas = document.getElementById('magic-bg');
+        const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
-        let particles = [];
+        let pts = [];
 
         function init() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            particles = [];
-            const count = window.innerWidth < 600 ? 25 : 50; // تقليل العدد للموبايل لضمان السلاسة
-            for(let i=0; i<count; i++) {
-                particles.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    s: Math.random() * 15 + 10,
-                    v: Math.random() * 1 + 0.5,
-                    o: Math.random()
-                });
-            }
+            pts = [];
+            for(let i=0; i<30; i++) pts.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, s:Math.random()*15+10, v:Math.random()*1+0.5});
         }
 
         function draw() {
             ctx.clearRect(0,0,canvas.width, canvas.height);
-            ctx.fillStyle = "rgba(255, 179, 217, 0.6)";
-            particles.forEach(p => {
+            ctx.fillStyle = "rgba(255, 179, 217, 0.5)";
+            pts.forEach(p => {
                 ctx.font = p.s + "px serif";
                 ctx.fillText("🌸", p.x, p.y);
                 p.y += p.v;
@@ -227,34 +167,26 @@
             requestAnimationFrame(draw);
         }
 
-        // الوظائف
-        function showMsg(t, b) {
-            document.getElementById('p-title').innerText = t;
-            document.getElementById('p-body').innerText = b;
-            document.getElementById('popup-overlay').style.display = 'flex';
-        }
-        function hideMsg() { document.getElementById('popup-overlay').style.display = 'none'; }
-
-        const player = document.getElementById('audio-player');
-        function toggleAudio() {
-            const btn = document.getElementById('playIco');
-            if(player.paused) { player.play(); btn.innerText = "⏸"; }
-            else { player.pause(); btn.innerText = "▶"; }
+        const audio = document.getElementById('track');
+        function playMusic() {
+            const btn = document.getElementById('pBtn');
+            if(audio.paused) { audio.play(); btn.innerText = "⏸"; }
+            else { audio.pause(); btn.innerText = "▶"; }
         }
 
-        player.ontimeupdate = () => {
-            const p = (player.currentTime / player.duration) * 100;
-            document.getElementById('prog-line').style.width = p + "%";
-        };
+        audio.ontimeupdate = () => { document.getElementById('bar').style.width = (audio.currentTime/audio.duration*100) + "%"; };
 
-        // تفاعل الأرنوب
-        document.getElementById('main-bunny').onclick = function() {
+        function pop(t, b) {
+            document.getElementById('mTitle').innerText = t;
+            document.getElementById('mBody').innerText = b;
+            document.getElementById('modal').style.display = 'flex';
+        }
+        function closePop() { document.getElementById('modal').style.display = 'none'; }
+
+        document.getElementById('bunny').onclick = function() {
             this.style.transform = "scale(1.3) rotate(10deg)";
-            document.getElementById('status-msg').innerText = "فديتج يا أحلى بنوتة! ✨";
-            setTimeout(() => {
-                this.style.transform = "scale(1)";
-                document.getElementById('status-msg').innerText = "أحبج للأبد! ❤️";
-            }, 600);
+            document.getElementById('talk').innerText = "أحبج حيل! ❤️";
+            setTimeout(() => { this.style.transform = "scale(1)"; }, 500);
         };
 
         window.onload = () => { init(); draw(); };

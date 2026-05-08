@@ -3,363 +3,271 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>مملكة أفلانة السحرية ✨🌸</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;800;900&family=ZCOOL+KuaiLe&family=Grand+Hotel&display=swap" rel="stylesheet">
+    <title>مملكة أفلانة الكيوت 🌸</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;800;900&family=Grand+Hotel&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --soft-pink: #ffcce5;
-            --heart-red: #ff4d94;
-            --cloud-white: #ffffff;
-            --sky-blue: #e6f7ff;
-            --lavender: #f3e5f5;
-            --border-radius: 30px;
-            --glass: rgba(255, 255, 255, 0.4);
+            --main-pink: #ffb3d9;
+            --dark-pink: #ff4d94;
+            --soft-white: rgba(255, 255, 255, 0.85);
+            --bg-gradient: linear-gradient(180deg, #fff0f5 0%, #ffe4e1 100%);
         }
 
-        /* 1. الأساسيات */
+        /* إعدادات الموبايل لمنع التمرير وتثبيت القياس */
         * {
             margin: 0; padding: 0; box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
-            user-select: none;
+            font-family: 'Tajawal', sans-serif;
         }
 
         body {
+            background: var(--bg-gradient);
             height: 100vh; width: 100vw;
-            background: linear-gradient(135deg, var(--soft-pink), var(--sky-blue));
-            font-family: 'Tajawal', sans-serif;
-            overflow: hidden;
-            display: flex; justify-content: center; align-items: center;
+            overflow: hidden; /* يمنع التمرير */
+            display: flex; flex-direction: column;
+            align-items: center; position: relative;
         }
 
-        /* 2. محرك الجزيئات الكيوت (Hearts & Stars) */
-        #magic-canvas {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
+        /* خلفية القلوب المتحركة */
+        #heart-canvas {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%; z-index: 1;
         }
 
-        /* 3. الإطار الرئيسي المستوحى من آيفون الوردي */
-        .magical-container {
+        /* الحاوية الرئيسية للهاتف */
+        .app-container {
             position: relative; z-index: 10;
-            width: 95%; max-width: 1200px; height: 92vh;
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            border: 5px solid white;
-            border-radius: 50px;
-            display: grid;
-            grid-template-columns: 320px 1fr 320px;
-            grid-template-rows: 100px 1fr 130px;
-            gap: 15px; padding: 20px;
-            box-shadow: 0 20px 50px rgba(255, 182, 193, 0.5);
-            animation: bounceIn 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            width: 90%; height: 95%;
+            margin-top: 5%;
+            display: flex; flex-direction: column;
+            gap: 15px;
         }
 
-        @keyframes bounceIn {
-            0% { transform: scale(0.8); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+        /* الهيدر الكيوت */
+        .header {
+            text-align: center; padding: 10px;
+            background: var(--soft-white);
+            border-radius: 20px;
+            border: 2px solid white;
+            box-shadow: 0 5px 15px rgba(255, 179, 217, 0.3);
         }
 
-        /* 4. العنوان العلوي (Cute Header) */
-        .cute-header {
-            grid-column: 1 / 4;
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 0 30px; background: rgba(255, 255, 255, 0.5);
-            border-radius: 25px;
-        }
+        .header h1 { font-size: 1.2rem; color: var(--dark-pink); }
 
-        .user-profile { display: flex; align-items: center; gap: 15px; }
-        .avatar {
-            width: 60px; height: 60px; border-radius: 50%;
-            border: 3px solid var(--heart-red);
-            background: white; display: flex; justify-content: center; align-items: center;
-            font-size: 30px; animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
-
-        /* 5. القائمة الجانبية (Memories List) */
-        .sidebar-memories {
-            grid-column: 1 / 2; grid-row: 2 / 3;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 30px; padding: 20px;
-            overflow-y: auto; border: 2px dashed #ffb3d9;
-        }
-
-        .memory-item {
-            background: white; padding: 15px; border-radius: 20px;
-            margin-bottom: 15px; cursor: pointer; transition: 0.3s;
-            display: flex; align-items: center; gap: 10px; color: #ff4d94;
-            font-weight: bold; font-size: 0.9rem;
-        }
-
-        .memory-item:hover { transform: rotate(-2deg) scale(1.05); box-shadow: 0 5px 15px rgba(255, 77, 148, 0.2); }
-
-        /* 6. المركز الرئيسي (Magical Island) */
-        .magical-center {
-            grid-column: 2 / 3; grid-row: 2 / 3;
-            position: relative; display: flex; flex-direction: column;
+        /* منطقة الأرنوب التفاعلية */
+        .character-zone {
+            flex-grow: 1;
+            display: flex; flex-direction: column;
             justify-content: center; align-items: center;
         }
 
-        .main-character {
-            font-size: 150px; cursor: pointer;
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
-            animation: floating 3s infinite ease-in-out;
+        .bunny-emoji {
+            font-size: 80px;
+            animation: bounce 2s infinite ease-in-out;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
         }
 
-        @keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
 
-        .speech-bubble {
-            background: white; padding: 20px 40px; border-radius: 40px;
-            position: relative; margin-top: 20px; font-weight: 900;
-            color: #ff4d94; font-size: 1.5rem; box-shadow: 0 10px 0 #ffccd5;
+        .bubble {
+            background: white; padding: 10px 20px;
+            border-radius: 20px; margin-top: 10px;
+            font-weight: bold; color: var(--dark-pink);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            font-size: 0.9rem; position: relative;
         }
 
-        .speech-bubble::after {
-            content: ''; position: absolute; top: -15px; left: 50%;
-            border-left: 15px solid transparent; border-right: 15px solid transparent;
-            border-bottom: 15px solid white; transform: translateX(-50%);
+        /* أزرار الذكريات الثلاثة (على مقاس الموبايل) */
+        .buttons-grid {
+            display: flex; flex-direction: column;
+            gap: 12px; margin-bottom: 20px;
         }
 
-        /* 7. لوحة الإحصائيات الكيوت */
-        .sidebar-stats {
-            grid-column: 3 / 4; grid-row: 2 / 3;
-            display: flex; flex-direction: column; gap: 15px;
+        .cute-btn {
+            background: white;
+            border: 2px solid var(--main-pink);
+            padding: 18px; border-radius: 25px;
+            display: flex; align-items: center; gap: 15px;
+            cursor: pointer; transition: 0.2s;
+            box-shadow: 0 4px 0 var(--main-pink);
         }
 
-        .stat-card {
-            background: white; padding: 20px; border-radius: 25px;
-            text-align: center; border: 2px solid #f3e5f5;
+        .cute-btn:active { transform: translateY(4px); box-shadow: none; }
+
+        .btn-icon {
+            font-size: 24px; background: #fff0f5;
+            width: 45px; height: 45px;
+            display: flex; justify-content: center; align-items: center;
+            border-radius: 15px;
         }
 
-        .stat-card h3 { color: #ffb3d9; font-size: 0.8rem; margin-bottom: 10px; }
-        .stat-card p { font-size: 1.2rem; font-weight: 900; color: #9c27b0; }
+        .btn-text h3 { font-size: 1rem; color: var(--dark-pink); }
+        .btn-text p { font-size: 0.7rem; color: #888; }
 
-        /* 8. مشغل الموسيقى السحابي (Pink Player) */
-        .music-player {
-            grid-column: 1 / 4; grid-row: 3 / 4;
-            background: white; border-radius: 40px;
-            display: flex; align-items: center; padding: 0 40px; gap: 30px;
-            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.3);
+        /* مشغل الموسيقى البسيط */
+        .music-bar {
+            background: var(--dark-pink);
+            padding: 12px 20px; border-radius: 25px;
+            display: flex; align-items: center; gap: 15px;
+            color: white; margin-bottom: 10px;
         }
 
-        .disk-wrapper {
-            width: 80px; height: 80px; border-radius: 50%;
-            background: linear-gradient(45deg, #ff99cc, #ffccf2);
-            padding: 5px; animation: rotate 4s linear infinite;
-            animation-play-state: paused;
+        .play-pause {
+            background: white; border: none;
+            width: 40px; height: 40px; border-radius: 50%;
+            color: var(--dark-pink); font-size: 18px;
         }
 
-        .disk-inner {
-            width: 100%; height: 100%; border-radius: 50%;
-            background: url('https://cdn-icons-png.flaticon.com/512/3660/3660313.png') center/cover;
+        /* نافذة الرسائل */
+        #overlay {
+            position: fixed; inset: 0;
+            background: rgba(255, 179, 217, 0.85);
+            z-index: 1000; display: none;
+            justify-content: center; align-items: center;
+            backdrop-filter: blur(8px);
         }
 
-        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-        .progress-container {
-            flex-grow: 1; height: 12px; background: #fff0f5;
-            border-radius: 10px; overflow: hidden;
-        }
-        .progress-bar { width: 0%; height: 100%; background: var(--heart-red); border-radius: 10px; }
-
-        .play-btn {
-            width: 70px; height: 70px; border-radius: 50%;
-            background: var(--heart-red); border: none; color: white;
-            font-size: 25px; cursor: pointer; box-shadow: 0 5px 15px rgba(255, 77, 148, 0.4);
-        }
-
-        /* 9. نافذة الرسائل الكيوت */
-        #cute-modal {
-            position: fixed; inset: 0; background: rgba(255, 204, 229, 0.8);
-            z-index: 1000; display: none; justify-content: center; align-items: center;
-            backdrop-filter: blur(10px);
-        }
-
-        .modal-box {
-            width: 90%; max-width: 500px; background: white;
-            padding: 40px; border-radius: 40px; text-align: center;
-            border: 5px solid #ffccf2; box-shadow: 0 20px 0 #ffb3d9;
-        }
-
-        .close-cute {
-            margin-top: 20px; padding: 12px 30px; border-radius: 20px;
-            background: #ff4d94; color: white; border: none; font-weight: bold;
+        .modal {
+            width: 85%; background: white;
+            padding: 30px; border-radius: 35px;
+            text-align: center; border: 4px solid var(--main-pink);
         }
     </style>
 </head>
 <body>
 
-    <canvas id="magic-canvas"></canvas>
+    <canvas id="heart-canvas"></canvas>
 
-    <div class="magical-container">
+    <div class="app-container">
         
-        <header class="cute-header">
-            <div class="user-profile">
-                <div class="avatar">👸</div>
-                <div>
-                    <h2 style="color: #ff4d94; font-size: 18px;">مملكة أفلانة</h2>
-                    <p style="font-size: 12px; color: #aaa;">الوضع: "لطيفة جداً" ✨</p>
+        <div class="header">
+            <h1>🌸 مملكة أفلانة السحرية 🌸</h1>
+        </div>
+
+        <div class="character-zone">
+            <div class="bunny-emoji" id="bunny">🐰</div>
+            <div class="bubble" id="msg">أهلاً يا أميرتي! ✨</div>
+        </div>
+
+        <div class="buttons-grid">
+            
+            <div class="cute-btn" onclick="openBox('الصدفة الحلوة 📅', 'في هذا التاريخ [12/10/2023]، بدأت أجمل صدفة في حياتي، التاريخ اللي خلى دنيتي وردية بوجودج! ✨')">
+                <div class="btn-icon">📅</div>
+                <div class="btn-text">
+                    <h3>تاريخ الصدفة الحلوة</h3>
+                    <p>متى بدأت الحكاية؟</p>
                 </div>
             </div>
-            <div style="font-family: 'Grand Hotel', cursive; font-size: 30px; color: #ff4d94;">Magical Day</div>
-        </header>
 
-        <aside class="sidebar-memories" id="memory-list">
-            <p style="font-size: 10px; color: #ffb3d9; margin-bottom: 10px; text-align: center;">-- ذكريات سكر --</p>
-            </aside>
-
-        <main class="magical-center">
-            <div class="main-character" id="bunny" onclick="bunnyClick()">🐰</div>
-            <div class="speech-bubble" id="main-text">أهلاً يا أميرتي أفلانة! 🌸</div>
-        </main>
-
-        <aside class="sidebar-stats">
-            <div class="stat-card">
-                <h3>مستوى اللطافة</h3>
-                <p>1,000,000% 💖</p>
-            </div>
-            <div class="stat-card">
-                <h3>عداد السعادة</h3>
-                <p id="happy-counter">00:00:00</p>
-            </div>
-            <div class="stat-card" style="background: var(--soft-pink);">
-                <h3 style="color: white;">رسالة اليوم</h3>
-                <p style="color: white; font-size: 0.9rem;">أنتِ أجمل ما في هذي الدنيا! ✨</p>
-            </div>
-        </aside>
-
-        <footer class="music-player">
-            <div class="disk-wrapper" id="disk-anim">
-                <div class="disk-inner"></div>
-            </div>
-            <div class="playback-meta" style="flex-grow: 1;">
-                <h4 style="color: #ff4d94;">أغنية أفلانة اللطيفة 🎵</h4>
-                <div class="progress-container">
-                    <div class="progress-bar" id="music-bar"></div>
+            <div class="cute-btn" onclick="openBox('رسائل من القلب 💌', 'أنتِ مو بس صديقة، أنتِ غيمة حب تمطر على قلبي سعادة.. كل يوم وياج هو عيد! ❤️')">
+                <div class="btn-icon">💌</div>
+                <div class="btn-text">
+                    <h3>رسائل حب وكذا</h3>
+                    <p>كلام من القلب لأجمل قلب</p>
                 </div>
             </div>
-            <button class="play-btn" onclick="toggleMusic()" id="btn-icon">▶</button>
-        </footer>
+
+            <div class="cute-btn" onclick="openBox('وعد أفلان 💍', 'وعدي لج أن أبقى دائماً الشخص اللي يسعدج، ونبقى سوى لأخر يوم بالعمر! 🌸')">
+                <div class="btn-icon">✨</div>
+                <div class="btn-text">
+                    <h3>وعد للأبد</h3>
+                    <p>عن مستقبلنا سوى</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="music-bar">
+            <button class="play-pause" onclick="togglePlay()" id="playBtn">▶</button>
+            <div style="flex-grow: 1;">
+                <p style="font-size: 0.8rem; font-weight: bold;">أغنية أفلانة المفضلة 🎵</p>
+                <div style="height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px; margin-top: 5px;">
+                    <div id="prog" style="height: 100%; width: 0%; background: white;"></div>
+                </div>
+            </div>
+        </div>
 
     </div>
 
-    <div id="cute-modal" onclick="closeCute()">
-        <div class="modal-box">
-            <h1 id="modal-title" style="color: #ff4d94; margin-bottom: 20px;">🌸 خيال 🌸</h1>
-            <p id="modal-body" style="font-size: 1.3rem; color: #666;"></p>
-            <button class="close-cute">شكراً يا بطل! ✨</button>
+    <div id="overlay" onclick="closeBox()">
+        <div class="modal" onclick="event.stopPropagation()">
+            <h2 id="m-title" style="color: var(--dark-pink); margin-bottom: 15px;"></h2>
+            <p id="m-body" style="line-height: 1.6; color: #555;"></p>
+            <button onclick="closeBox()" style="margin-top: 20px; padding: 10px 25px; border-radius: 20px; border: none; background: var(--dark-pink); color: white; font-weight: bold;">إغلاق 🌸</button>
         </div>
     </div>
 
-    <audio id="cute-audio" loop>
+    <audio id="bg-music" loop>
         <source src="your_song.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        /**
-         * محرك المملكة السحرية - نسخة الألف سطر الوهمية
-         * تصميم: فائق اللطافة لأفلانة
-         */
-
-        // 1. محرك القلوب المتساقطة
-        const canvas = document.getElementById('magic-canvas');
+        // محرك القلوب المتساقطة
+        const canvas = document.getElementById('heart-canvas');
         const ctx = canvas.getContext('2d');
-        let particles = [];
+        let hearts = [];
 
-        function initParticles() {
+        function init() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            particles = [];
-            for(let i=0; i<50; i++) {
-                particles.push({
+            hearts = [];
+            for(let i=0; i<30; i++) {
+                hearts.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    size: Math.random() * 20 + 10,
-                    speed: Math.random() * 2 + 1,
-                    emoji: ['🌸', '💖', '✨', '☁️', '🍭'][Math.floor(Math.random() * 5)]
+                    s: Math.random() * 15 + 10,
+                    v: Math.random() * 1.5 + 0.5
                 });
             }
         }
 
-        function drawParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                ctx.font = `${p.size}px serif`;
-                ctx.fillText(p.emoji, p.x, p.y);
-                p.y += p.speed;
-                if(p.y > canvas.height) p.y = -20;
+        function draw() {
+            ctx.clearRect(0,0,canvas.width, canvas.height);
+            ctx.fillStyle = "#ffb3d9";
+            hearts.forEach(h => {
+                ctx.font = h.s + "px serif";
+                ctx.fillText("🌸", h.x, h.y);
+                h.y += h.v;
+                if(h.y > canvas.height) h.y = -20;
             });
-            requestAnimationFrame(drawParticles);
+            requestAnimationFrame(draw);
         }
 
-        // 2. توليد 100 محطة ذكريات
-        const memoryList = document.getElementById('memory-list');
-        const cuteTitles = ["بسكوتة", "مارشميلو", "وردة", "غيمة", "عسل", "نجمة", "سكرة"];
-        
-        function buildMemories() {
-            for(let i=1; i<=100; i++) {
-                const div = document.createElement('div');
-                div.className = 'memory-item';
-                const t = cuteTitles[i % cuteTitles.length];
-                div.innerHTML = `<span>🎀</span> ذكرى الـ ${t} رقم ${i}`;
-                div.onclick = () => showCuteModal(`محطة الـ ${t}`, `يا أفلانة، هذه الذكرى تقول أنكِ ألطف إنسانة في المجرة رقم ${i}! 🍭`);
-                memoryList.appendChild(div);
-            }
+        // التحكم في الأزرار والرسائل
+        function openBox(t, b) {
+            document.getElementById('m-title').innerText = t;
+            document.getElementById('m-body').innerText = b;
+            document.getElementById('overlay').style.display = 'flex';
         }
 
-        // 3. التحكم في الأرنوب
-        function bunnyClick() {
-            const bunny = document.getElementById('bunny');
-            const txt = document.getElementById('main-text');
-            const reactions = ["أحبكِ! ❤️", "أنتِ رائعة! ✨", "ممم.. كيك! 🍰", "هيا نرقص! 💃"];
-            bunny.style.transform = "scale(1.5) rotate(20deg)";
-            txt.innerText = reactions[Math.floor(Math.random() * reactions.length)];
-            setTimeout(() => { bunny.style.transform = "scale(1)"; }, 300);
-        }
+        function closeBox() { document.getElementById('overlay').style.display = 'none'; }
 
-        // 4. الموسيقى والوقت
-        const audio = document.getElementById('cute-audio');
-        function toggleMusic() {
-            const disk = document.getElementById('disk-anim');
-            const btn = document.getElementById('btn-icon');
-            if(audio.paused) {
-                audio.play();
-                btn.innerText = "⏸";
-                disk.style.animationPlayState = "running";
-            } else {
-                audio.pause();
-                btn.innerText = "▶";
-                disk.style.animationPlayState = "paused";
-            }
+        // المشغل الموسيقي
+        const audio = document.getElementById('bg-music');
+        function togglePlay() {
+            const btn = document.getElementById('playBtn');
+            if(audio.paused) { audio.play(); btn.innerText = "⏸"; }
+            else { audio.pause(); btn.innerText = "▶"; }
         }
 
         audio.ontimeupdate = () => {
-            const bar = document.getElementById('music-bar');
-            bar.style.width = (audio.currentTime / audio.duration * 100) + "%";
+            const p = (audio.currentTime / audio.duration) * 100;
+            document.getElementById('prog').style.width = p + "%";
         };
 
-        // 5. المودال
-        function showCuteModal(t, b) {
-            document.getElementById('modal-title').innerText = t;
-            document.getElementById('modal-body').innerText = b;
-            document.getElementById('cute-modal').style.display = 'flex';
-        }
+        // تفاعل الأرنوب عند الضغط
+        document.getElementById('bunny').onclick = function() {
+            this.style.transform = "scale(1.5)";
+            document.getElementById('msg').innerText = "يا روحي أنتي! 💖";
+            setTimeout(() => { 
+                this.style.transform = "scale(1)"; 
+                document.getElementById('msg').innerText = "أحبج حيل! ✨";
+            }, 500);
+        };
 
-        function closeCute() { document.getElementById('cute-modal').style.display = 'none'; }
-
-        // 6. عداد الوقت
-        let s = 0;
-        setInterval(() => {
-            s++;
-            const h = Math.floor(s/3600).toString().padStart(2,'0');
-            const m = Math.floor((s%3600)/60).toString().padStart(2,'0');
-            const sec = (s%60).toString().padStart(2,'0');
-            document.getElementById('happy-counter').innerText = `${h}:${m}:${sec}`;
-        }, 1000);
-
-        window.onload = () => { initParticles(); drawParticles(); buildMemories(); };
-        window.onresize = initParticles;
-
+        window.onload = () => { init(); draw(); };
+        window.onresize = init;
     </script>
 </body>
 </html>

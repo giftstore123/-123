@@ -7,65 +7,66 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --petal-color: radial-gradient(ellipse at bottom, #ff4d8d, #d81b60, #880e4f);
+            --p-color: radial-gradient(ellipse at bottom, #ff4d8d, #d81b60, #880e4f);
+            --bg: #05050a;
         }
 
         body {
             margin: 0; padding: 0;
             display: flex; justify-content: center; align-items: center;
-            height: 100vh; background: #05050a;
+            height: 100vh; background: var(--bg);
             font-family: 'Tajawal', sans-serif;
             overflow: hidden; touch-action: none;
         }
 
-        /* حاوية الوردة الثابتة */
-        .flower-area {
+        /* حاوية الوردة - الأب */
+        .flower {
             position: relative;
-            width: 200px; height: 200px;
+            width: 80px; height: 80px; /* حجم القلب تقريباً */
             display: flex; justify-content: center; align-items: center;
         }
 
-        .flower-center {
-            position: absolute; width: 70px; height: 70px;
+        .center {
+            position: absolute; width: 80px; height: 80px;
             background: radial-gradient(circle, #ffca28, #f57f17);
-            border-radius: 50%; z-index: 25;
-            box-shadow: 0 0 30px rgba(255, 193, 7, 0.6);
+            border-radius: 50%; z-index: 30;
+            box-shadow: 0 0 30px rgba(255, 193, 7, 0.7);
         }
 
         .stem {
-            position: absolute; width: 14px; height: 280px;
+            position: absolute; width: 15px; height: 300px;
             background: linear-gradient(to bottom, #1b5e20, #388e3c, #0a240d);
-            top: 100px; border-radius: 20px; z-index: 1;
+            top: 40px; border-radius: 20px; z-index: 1;
         }
 
-        /* ضبط البتلات لتكون ملتصقة بالمركز */
+        /* البتلات جوه نفس الحاوية */
         .petal {
             position: absolute;
-            width: 120px; height: 170px;
-            background: var(--petal-color);
+            width: 130px; height: 180px;
+            background: var(--p-color);
             border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
-            /* نقطة الدوران من أسفل المنتصف تماماً */
+            /* الحل الجذري: نقطة الدوران في أسفل المركز تماماً */
             transform-origin: bottom center;
-            /* تبدأ من مستوى قلب الوردة */
-            bottom: 50%; 
+            /* تبدأ من منتصف الأب */
+            bottom: 40px; 
             cursor: pointer;
-            z-index: 10;
+            z-index: 20;
             box-shadow: 2px 5px 20px rgba(0,0,0,0.6);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.4s ease, opacity 0.3s;
             border: 0.5px solid rgba(255,255,255,0.1);
         }
 
-        /* نافذة الرسالة الكبيرة */
-        #petal-modal {
+        /* نافذة الرسالة */
+        #modal {
             position: fixed; inset: 0;
             background: rgba(0,0,0,0.92);
             display: none; justify-content: center; align-items: center;
             z-index: 2000; backdrop-filter: blur(12px);
         }
 
-        .modal-petal {
+        .modal-p {
             width: 320px; height: 480px;
-            background: var(--petal-color);
+            background: var(--p-color);
             border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%;
             display: flex; justify-content: center; align-items: center;
             padding: 35px; text-align: center; color: white;
@@ -75,17 +76,14 @@
             line-height: 1.5;
         }
 
-        @keyframes zoomIn {
-            0% { transform: scale(0.5); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
+        @keyframes zoomIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
         /* السحابة 🌧 */
         #cloud {
             position: absolute; bottom: 30px; right: 30px;
             font-size: 90px; cursor: grab; z-index: 500;
             filter: drop-shadow(0 0 15px white);
-            user-select: none; transition: transform 0.1s;
+            user-select: none;
         }
 
         .rain {
@@ -94,24 +92,21 @@
             pointer-events: none; z-index: 400;
         }
 
-        @keyframes rainFall {
-            0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(120px); opacity: 0; }
-        }
+        @keyframes rainFall { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(120px); opacity: 0; } }
 
         .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
-<div id="petal-modal" onclick="this.style.display='none'">
-    <div class="modal-petal" id="modal-text"></div>
+<div id="modal" onclick="this.style.display='none'">
+    <div class="modal-p" id="modal-text"></div>
 </div>
 
 <div id="cloud">🌧</div>
 
-<div class="flower-area" id="flower-target">
-    <div class="flower-center"></div>
+<div class="flower" id="flower-id">
+    <div class="center"></div>
     <div id="petals-container"></div>
     <div class="stem"></div>
 </div>
@@ -127,26 +122,25 @@
         "بُستاني لا يزهر إلا بكِ ❤️"
     ];
 
-    let pluckedCount = 0;
+    let plucked = 0;
     const cloud = document.getElementById('cloud');
 
     function createFlower() {
         const container = document.getElementById('petals-container');
         container.innerHTML = '';
-        pluckedCount = 0;
+        plucked = 0;
         for (let i = 0; i < 7; i++) {
             const p = document.createElement('div');
             p.className = 'petal';
             const rotate = i * (360 / 7);
-            // الدوران من أسفل لجعلهم يلتقون في قلب الوردة
             p.style.transform = `rotate(${rotate}deg)`;
             
             p.onclick = (e) => {
                 e.stopPropagation();
                 document.getElementById('modal-text').innerText = msgs[i];
-                document.getElementById('petal-modal').style.display = 'flex';
+                document.getElementById('modal').style.display = 'flex';
                 p.classList.add('hidden');
-                pluckedCount++;
+                plucked++;
             };
             container.appendChild(p);
         }
@@ -165,8 +159,9 @@
         cloud.style.position = 'fixed';
         cloud.style.left = (x - 45) + 'px';
         cloud.style.top = (y - 45) + 'px';
+        cloud.style.right = 'auto'; cloud.style.bottom = 'auto';
 
-        // تأثير المطر
+        // المطر
         const drop = document.createElement('div');
         drop.className = 'rain'; drop.innerHTML = '💧';
         drop.style.left = x + 'px'; drop.style.top = (y + 40) + 'px';
@@ -174,12 +169,10 @@
         setTimeout(() => drop.remove(), 600);
 
         // فحص السقي
-        const target = document.getElementById('flower-target').getBoundingClientRect();
+        const target = document.getElementById('flower-id').getBoundingClientRect();
         const dist = Math.sqrt(Math.pow(x - (target.left + target.width/2), 2) + Math.pow(y - (target.top + target.height/2), 2));
         
-        if (dist < 100 && pluckedCount === 7) {
-            createFlower();
-        }
+        if (dist < 100 && plucked === 7) createFlower();
     };
 
     window.onload = createFlower;

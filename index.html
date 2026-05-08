@@ -3,682 +3,363 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>محطة أفلانة القيادية | النظام السيادي</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&family=Share+Tech+Mono&family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>مملكة أفلانة السحرية ✨🌸</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;800;900&family=ZCOOL+KuaiLe&family=Grand+Hotel&display=swap" rel="stylesheet">
     
     <style>
-        /* =========================================
-           1. CSS ARCHITECTURE - GLOBAL VARIABLES
-           =========================================
-        */
         :root {
-            --primary-neon: #00f2ff;
-            --secondary-neon: #ff007f;
-            --alert-neon: #39ff14;
-            --void-black: #010103;
-            --deep-space: #050a1a;
-            --glass-panel: rgba(10, 20, 40, 0.9);
-            --border-glow: 0 0 10px rgba(0, 242, 255, 0.5);
-            --text-shadow: 0 0 5px var(--primary-neon);
-            --transition-speed: 0.4s;
-            --standard-padding: 20px;
-            --ui-font: 'Exo 2', sans-serif;
-            --data-font: 'Share Tech Mono', monospace;
-            --heading-font: 'Orbitron', sans-serif;
+            --soft-pink: #ffcce5;
+            --heart-red: #ff4d94;
+            --cloud-white: #ffffff;
+            --sky-blue: #e6f7ff;
+            --lavender: #f3e5f5;
+            --border-radius: 30px;
+            --glass: rgba(255, 255, 255, 0.4);
         }
 
-        /* =========================================
-           2. CORE RESET & RESET SCALING
-           =========================================
-        */
+        /* 1. الأساسيات */
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            margin: 0; padding: 0; box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
-            cursor: crosshair;
+            user-select: none;
         }
 
-        body, html {
-            height: 100%;
-            width: 100%;
+        body {
+            height: 100vh; width: 100vw;
+            background: linear-gradient(135deg, var(--soft-pink), var(--sky-blue));
+            font-family: 'Tajawal', sans-serif;
             overflow: hidden;
-            background-color: var(--void-black);
-            color: #ffffff;
-            font-family: var(--ui-font);
+            display: flex; justify-content: center; align-items: center;
         }
 
-        /* =========================================
-           3. BACKGROUND VISUALIZATION ENGINE
-           =========================================
-        */
-        #master-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            filter: blur(0.5px);
+        /* 2. محرك الجزيئات الكيوت (Hearts & Stars) */
+        #magic-canvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
         }
 
-        /* =========================================
-           4. MAIN OPERATING SYSTEM WRAPPER
-           =========================================
-        */
-        #nebula-os-root {
-            position: relative;
-            z-index: 10;
-            width: 100vw;
-            height: 100vh;
+        /* 3. الإطار الرئيسي المستوحى من آيفون الوردي */
+        .magical-container {
+            position: relative; z-index: 10;
+            width: 95%; max-width: 1200px; height: 92vh;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 5px solid white;
+            border-radius: 50px;
             display: grid;
-            grid-template-columns: 350px 1fr 350px;
-            grid-template-rows: 100px 1fr 140px;
-            gap: 15px;
-            padding: 15px;
-            background: radial-gradient(circle at center, transparent, rgba(0,0,0,0.4));
+            grid-template-columns: 320px 1fr 320px;
+            grid-template-rows: 100px 1fr 130px;
+            gap: 15px; padding: 20px;
+            box-shadow: 0 20px 50px rgba(255, 182, 193, 0.5);
+            animation: bounceIn 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
-        /* =========================================
-           5. TOP NAVIGATION & STATUS BAR
-           =========================================
-        */
-        .os-top-bar {
+        @keyframes bounceIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* 4. العنوان العلوي (Cute Header) */
+        .cute-header {
             grid-column: 1 / 4;
-            background: var(--glass-panel);
-            border: 1px solid rgba(0, 242, 255, 0.2);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 40px;
-            box-shadow: var(--border-glow);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 30px; background: rgba(255, 255, 255, 0.5);
+            border-radius: 25px;
         }
 
-        .system-branding {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+        .user-profile { display: flex; align-items: center; gap: 15px; }
+        .avatar {
+            width: 60px; height: 60px; border-radius: 50%;
+            border: 3px solid var(--heart-red);
+            background: white; display: flex; justify-content: center; align-items: center;
+            font-size: 30px; animation: pulse 2s infinite;
         }
 
-        .branding-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(45deg, var(--primary-neon), var(--secondary-neon));
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: 900;
-            font-family: var(--heading-font);
-            box-shadow: 0 0 20px var(--primary-neon);
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+
+        /* 5. القائمة الجانبية (Memories List) */
+        .sidebar-memories {
+            grid-column: 1 / 2; grid-row: 2 / 3;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 30px; padding: 20px;
+            overflow-y: auto; border: 2px dashed #ffb3d9;
         }
 
-        .status-telemetry {
-            display: flex;
-            gap: 30px;
-            font-family: var(--data-font);
-            font-size: 14px;
-            color: var(--primary-neon);
+        .memory-item {
+            background: white; padding: 15px; border-radius: 20px;
+            margin-bottom: 15px; cursor: pointer; transition: 0.3s;
+            display: flex; align-items: center; gap: 10px; color: #ff4d94;
+            font-weight: bold; font-size: 0.9rem;
         }
 
-        /* =========================================
-           6. LEFT NAVIGATION PANEL (NAVIGATION)
-           =========================================
-        */
-        .sidebar-left {
-            grid-column: 1 / 2;
-            grid-row: 2 / 3;
-            background: var(--glass-panel);
-            border: 1px solid rgba(0, 242, 255, 0.1);
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            overflow-y: auto;
+        .memory-item:hover { transform: rotate(-2deg) scale(1.05); box-shadow: 0 5px 15px rgba(255, 77, 148, 0.2); }
+
+        /* 6. المركز الرئيسي (Magical Island) */
+        .magical-center {
+            grid-column: 2 / 3; grid-row: 2 / 3;
+            position: relative; display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
         }
 
-        .nav-header {
-            font-family: var(--heading-font);
-            font-size: 12px;
-            color: var(--secondary-neon);
-            margin-bottom: 20px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
+        .main-character {
+            font-size: 150px; cursor: pointer;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
+            animation: floating 3s infinite ease-in-out;
         }
 
-        .nav-item {
-            padding: 15px;
-            margin-bottom: 10px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            transition: all var(--transition-speed);
-            cursor: pointer;
-            position: relative;
+        @keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
+
+        .speech-bubble {
+            background: white; padding: 20px 40px; border-radius: 40px;
+            position: relative; margin-top: 20px; font-weight: 900;
+            color: #ff4d94; font-size: 1.5rem; box-shadow: 0 10px 0 #ffccd5;
         }
 
-        .nav-item:hover {
-            background: rgba(0, 242, 255, 0.1);
-            border-color: var(--primary-neon);
-            transform: scale(1.02);
+        .speech-bubble::after {
+            content: ''; position: absolute; top: -15px; left: 50%;
+            border-left: 15px solid transparent; border-right: 15px solid transparent;
+            border-bottom: 15px solid white; transform: translateX(-50%);
         }
 
-        .nav-item::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 3px;
-            background: var(--primary-neon);
-            opacity: 0;
-            transition: 0.3s;
+        /* 7. لوحة الإحصائيات الكيوت */
+        .sidebar-stats {
+            grid-column: 3 / 4; grid-row: 2 / 3;
+            display: flex; flex-direction: column; gap: 15px;
         }
 
-        .nav-item:hover::before { opacity: 1; }
-
-        /* =========================================
-           7. CENTER COMMAND HUD (CORE VISUALS)
-           =========================================
-        */
-        .central-hub {
-            grid-column: 2 / 3;
-            grid-row: 2 / 3;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px dashed rgba(0, 242, 255, 0.2);
-            border-radius: 12px;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
+        .stat-card {
+            background: white; padding: 20px; border-radius: 25px;
+            text-align: center; border: 2px solid #f3e5f5;
         }
 
-        .rocket-engine-core {
-            font-size: 180px;
-            filter: drop-shadow(0 0 30px var(--primary-neon));
-            animation: cosmicFloat 6s infinite ease-in-out;
-            z-index: 50;
-            cursor: pointer;
+        .stat-card h3 { color: #ffb3d9; font-size: 0.8rem; margin-bottom: 10px; }
+        .stat-card p { font-size: 1.2rem; font-weight: 900; color: #9c27b0; }
+
+        /* 8. مشغل الموسيقى السحابي (Pink Player) */
+        .music-player {
+            grid-column: 1 / 4; grid-row: 3 / 4;
+            background: white; border-radius: 40px;
+            display: flex; align-items: center; padding: 0 40px; gap: 30px;
+            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.3);
         }
 
-        @keyframes cosmicFloat {
-            0%, 100% { transform: translate(0, 0) rotate(-45deg) scale(1); }
-            33% { transform: translate(-20px, -40px) rotate(-40deg) scale(1.05); }
-            66% { transform: translate(20px, -20px) rotate(-50deg) scale(0.95); }
-        }
-
-        .hud-overlay-text {
-            position: absolute;
-            bottom: 40px;
-            text-align: center;
-            font-family: var(--heading-font);
-        }
-
-        .glitch-text {
-            font-size: 3rem;
-            color: white;
-            text-shadow: 3px 3px var(--secondary-neon), -3px -3px var(--primary-neon);
-            animation: glitchEffect 2s infinite;
-        }
-
-        @keyframes glitchEffect {
-            0% { transform: skew(0deg); }
-            20% { transform: skew(2deg); }
-            40% { transform: skew(-2deg); }
-            60% { transform: skew(1deg); }
-            80% { transform: skew(-1deg); }
-            100% { transform: skew(0deg); }
-        }
-
-        /* =========================================
-           8. RIGHT ANALYTICS PANEL (RADAR & LOGS)
-           =========================================
-        */
-        .sidebar-right {
-            grid-column: 3 / 4;
-            grid-row: 2 / 3;
-            background: var(--glass-panel);
-            border: 1px solid rgba(0, 242, 255, 0.1);
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            gap: 20px;
-        }
-
-        .radar-interface {
-            width: 100%;
-            height: 250px;
-            background: radial-gradient(circle, #0a1f1a, #010103);
-            border: 2px solid var(--alert-neon);
-            border-radius: 50%;
-            position: relative;
-            overflow: hidden;
-            box-shadow: inset 0 0 30px var(--alert-neon);
-        }
-
-        .radar-line {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 50%;
-            height: 4px;
-            background: linear-gradient(to right, var(--alert-neon), transparent);
-            transform-origin: left center;
-            animation: radarRotate 4s linear infinite;
-        }
-
-        @keyframes radarRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-        .data-stream {
-            flex-grow: 1;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 8px;
-            padding: 15px;
-            font-family: var(--data-font);
-            font-size: 11px;
-            color: var(--alert-neon);
-            overflow-y: hidden;
-            border: 1px solid rgba(57, 255, 20, 0.2);
-        }
-
-        /* =========================================
-           9. BOTTOM SONIC CONTROL (MUSIC SYSTEM)
-           =========================================
-        */
-        .footer-control-panel {
-            grid-column: 1 / 4;
-            grid-row: 3 / 4;
-            background: var(--glass-panel);
-            border-top: 2px solid var(--secondary-neon);
-            border-radius: 15px 15px 0 0;
-            display: flex;
-            align-items: center;
-            padding: 0 50px;
-            gap: 40px;
-        }
-
-        .album-art-container {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            border: 4px solid var(--secondary-neon);
-            padding: 5px;
-            background: #000;
-            position: relative;
-        }
-
-        .spinning-vinyl {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: url('https://cdn-icons-png.flaticon.com/512/1160/1160351.png') center/cover;
-            animation: vinylSpin 4s linear infinite;
+        .disk-wrapper {
+            width: 80px; height: 80px; border-radius: 50%;
+            background: linear-gradient(45deg, #ff99cc, #ffccf2);
+            padding: 5px; animation: rotate 4s linear infinite;
             animation-play-state: paused;
         }
 
-        @keyframes vinylSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-        .playback-meta { flex-grow: 1; }
-
-        .progress-bar-container {
-            width: 100%;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            margin-top: 15px;
-            border-radius: 3px;
-            overflow: hidden;
-            position: relative;
+        .disk-inner {
+            width: 100%; height: 100%; border-radius: 50%;
+            background: url('https://cdn-icons-png.flaticon.com/512/3660/3660313.png') center/cover;
         }
 
-        .progress-bar-fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(to right, var(--primary-neon), var(--secondary-neon));
-            box-shadow: 0 0 15px var(--primary-neon);
-            transition: width 0.1s linear;
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .progress-container {
+            flex-grow: 1; height: 12px; background: #fff0f5;
+            border-radius: 10px; overflow: hidden;
+        }
+        .progress-bar { width: 0%; height: 100%; background: var(--heart-red); border-radius: 10px; }
+
+        .play-btn {
+            width: 70px; height: 70px; border-radius: 50%;
+            background: var(--heart-red); border: none; color: white;
+            font-size: 25px; cursor: pointer; box-shadow: 0 5px 15px rgba(255, 77, 148, 0.4);
         }
 
-        .master-play-btn {
-            width: 70px;
-            height: 70px;
-            background: var(--secondary-neon);
-            border: none;
-            border-radius: 50%;
-            color: white;
-            font-size: 30px;
-            cursor: pointer;
-            box-shadow: 0 0 30px var(--secondary-neon);
-            transition: 0.3s;
+        /* 9. نافذة الرسائل الكيوت */
+        #cute-modal {
+            position: fixed; inset: 0; background: rgba(255, 204, 229, 0.8);
+            z-index: 1000; display: none; justify-content: center; align-items: center;
+            backdrop-filter: blur(10px);
         }
 
-        .master-play-btn:hover { transform: scale(1.1); filter: brightness(1.2); }
-
-        /* =========================================
-           10. HUD SYSTEM OVERLAYS (TERMINAL)
-           =========================================
-        */
-        #global-hud-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 2, 10, 0.98);
-            z-index: 9999;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            padding: 50px;
+        .modal-box {
+            width: 90%; max-width: 500px; background: white;
+            padding: 40px; border-radius: 40px; text-align: center;
+            border: 5px solid #ffccf2; box-shadow: 0 20px 0 #ffb3d9;
         }
 
-        .hud-terminal-window {
-            width: 100%;
-            max-width: 900px;
-            height: 600px;
-            background: #000;
-            border: 1px solid var(--primary-neon);
-            border-radius: 10px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 0 100px rgba(0, 242, 255, 0.3);
+        .close-cute {
+            margin-top: 20px; padding: 12px 30px; border-radius: 20px;
+            background: #ff4d94; color: white; border: none; font-weight: bold;
         }
-
-        .terminal-header {
-            padding: 15px;
-            background: rgba(0, 242, 255, 0.1);
-            font-family: var(--heading-font);
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .terminal-body {
-            flex-grow: 1;
-            padding: 40px;
-            font-size: 1.5rem;
-            line-height: 1.8;
-            color: #b0f5ff;
-            overflow-y: auto;
-            text-align: right;
-        }
-
-        /* =========================================
-           11. IMAGES & VISUAL ASSETS CONTAINER
-           =========================================
-        */
-        .planetary-asset {
-            position: absolute;
-            border-radius: 50%;
-            z-index: 2;
-            opacity: 0.4;
-            pointer-events: none;
-        }
-
-        /* =========================================
-           12. RESPONSIVE MEDIA QUERIES
-           =========================================
-        */
-        @media (max-width: 1000px) {
-            #nebula-os-root {
-                grid-template-columns: 1fr;
-                grid-template-rows: 80px 1fr 1fr 140px;
-            }
-            .sidebar-left, .sidebar-right { grid-column: 1 / 2; }
-            .central-hub { height: 400px; grid-column: 1 / 2; }
-        }
-
     </style>
 </head>
 <body>
 
-    <canvas id="master-canvas"></canvas>
+    <canvas id="magic-canvas"></canvas>
 
-    <main id="nebula-os-root">
+    <div class="magical-container">
         
-        <header class="os-top-bar">
-            <div class="system-branding">
-                <div class="branding-icon">A</div>
+        <header class="cute-header">
+            <div class="user-profile">
+                <div class="avatar">👸</div>
                 <div>
-                    <h2 style="font-family: var(--heading-font); font-size: 18px; color: var(--primary-neon);">AFLANA_OS</h2>
-                    <p style="font-size: 10px; opacity: 0.7;">KERNEL: LOVE_v10.0.4</p>
+                    <h2 style="color: #ff4d94; font-size: 18px;">مملكة أفلانة</h2>
+                    <p style="font-size: 12px; color: #aaa;">الوضع: "لطيفة جداً" ✨</p>
                 </div>
             </div>
-
-            <div class="status-telemetry">
-                <div>COORD: <span id="tele-coord">X:12 Y:10 Z:2023</span></div>
-                <div>STATUS: <span id="tele-status" style="color: var(--alert-neon);">STABLE</span></div>
-                <div>TIME: <span id="tele-timer">00:00:00</span></div>
-            </div>
+            <div style="font-family: 'Grand Hotel', cursive; font-size: 30px; color: #ff4d94;">Magical Day</div>
         </header>
 
-        <aside class="sidebar-left">
-            <h4 class="nav-header">سجل الرحلة الكونية</h4>
-            <div id="navigation-inject">
-                </div>
+        <aside class="sidebar-memories" id="memory-list">
+            <p style="font-size: 10px; color: #ffb3d9; margin-bottom: 10px; text-align: center;">-- ذكريات سكر --</p>
+            </aside>
+
+        <main class="magical-center">
+            <div class="main-character" id="bunny" onclick="bunnyClick()">🐰</div>
+            <div class="speech-bubble" id="main-text">أهلاً يا أميرتي أفلانة! 🌸</div>
+        </main>
+
+        <aside class="sidebar-stats">
+            <div class="stat-card">
+                <h3>مستوى اللطافة</h3>
+                <p>1,000,000% 💖</p>
+            </div>
+            <div class="stat-card">
+                <h3>عداد السعادة</h3>
+                <p id="happy-counter">00:00:00</p>
+            </div>
+            <div class="stat-card" style="background: var(--soft-pink);">
+                <h3 style="color: white;">رسالة اليوم</h3>
+                <p style="color: white; font-size: 0.9rem;">أنتِ أجمل ما في هذي الدنيا! ✨</p>
+            </div>
         </aside>
 
-        <section class="central-hub">
-            <div class="rocket-engine-core" id="main-rocket" onclick="triggerEasterEgg()">🚀</div>
-            <div class="hud-overlay-text">
-                <h1 class="glitch-text">أفلانة</h1>
-                <p style="letter-spacing: 5px; opacity: 0.8; font-weight: 300;">COMMANDER OF THE GALAXY</p>
+        <footer class="music-player">
+            <div class="disk-wrapper" id="disk-anim">
+                <div class="disk-inner"></div>
             </div>
-            
-            <div class="planetary-asset" style="width: 150px; height: 150px; background: radial-gradient(circle, #ff5722, #000); top: 10%; right: 10%; box-shadow: 0 0 40px #ff5722;"></div>
-            <div class="planetary-asset" style="width: 80px; height: 80px; background: radial-gradient(circle, #03a9f4, #000); bottom: 15%; left: 10%; box-shadow: 0 0 40px #03a9f4;"></div>
-        </section>
-
-        <aside class="sidebar-right">
-            <h4 class="nav-header">نظام الرادار النشط</h4>
-            <div class="radar-interface">
-                <div class="radar-line"></div>
-                <div style="position: absolute; top: 40%; left: 55%; color: var(--secondary-neon); font-size: 14px;">❤️</div>
-            </div>
-            <h4 class="nav-header" style="margin-top: 10px;">تسريب البيانات المباشر</h4>
-            <div class="data-stream" id="log-console"></div>
-        </aside>
-
-        <footer class="footer-control-panel">
-            <div class="album-art-container">
-                <div class="spinning-vinyl" id="vinyl-ui"></div>
-            </div>
-
-            <div class="playback-meta">
-                <h3 style="font-family: var(--heading-font); font-size: 16px; color: var(--primary-neon);">Space Song: Aflana & Aflan Remix</h3>
-                <div class="progress-bar-container">
-                    <div class="progress-bar-fill" id="track-progress"></div>
-                </div>
-                <div style="display: flex; justify-content: space-between; font-family: var(--data-font); font-size: 12px; margin-top: 8px;">
-                    <span id="current-time">0:00</span>
-                    <span id="duration-time">3:45</span>
+            <div class="playback-meta" style="flex-grow: 1;">
+                <h4 style="color: #ff4d94;">أغنية أفلانة اللطيفة 🎵</h4>
+                <div class="progress-container">
+                    <div class="progress-bar" id="music-bar"></div>
                 </div>
             </div>
-
-            <button class="master-play-btn" id="play-pause-master" onclick="toggleAudioEngine()">▶</button>
+            <button class="play-btn" onclick="toggleMusic()" id="btn-icon">▶</button>
         </footer>
 
-    </main>
+    </div>
 
-    <div id="global-hud-overlay">
-        <div class="hud-terminal-window">
-            <div class="terminal-header">
-                <span>SECURE_ENCRYPTION_ACCESS</span>
-                <span style="color: var(--secondary-neon);">LEVEL: ADMIN</span>
-            </div>
-            <div class="terminal-body" id="hud-content-area"></div>
-            <button onclick="closeTerminal()" style="padding: 15px; background: var(--secondary-neon); border: none; color: white; font-weight: bold; cursor: pointer;">خروج من النظام</button>
+    <div id="cute-modal" onclick="closeCute()">
+        <div class="modal-box">
+            <h1 id="modal-title" style="color: #ff4d94; margin-bottom: 20px;">🌸 خيال 🌸</h1>
+            <p id="modal-body" style="font-size: 1.3rem; color: #666;"></p>
+            <button class="close-cute">شكراً يا بطل! ✨</button>
         </div>
     </div>
 
-    <audio id="main-audio-engine" loop>
+    <audio id="cute-audio" loop>
         <source src="your_song.mp3" type="audio/mpeg">
     </audio>
 
     <script>
         /**
-         * نظام التشغيل الكوني - محرك البرمجة المتقدم
-         * يحتوي على أكثر من 50 وظيفة منطقية للتحكم في الواجهة
+         * محرك المملكة السحرية - نسخة الألف سطر الوهمية
+         * تصميم: فائق اللطافة لأفلانة
          */
 
-        const logConsole = document.getElementById('log-console');
-        const audio = document.getElementById('main-audio-engine');
-        const playBtn = document.getElementById('play-pause-master');
-        const vinyl = document.getElementById('vinyl-ui');
-        const progressBar = document.getElementById('track-progress');
-        
-        // --- 1. محرك خلفية النجوم (Starfield Simulation) ---
-        const canvas = document.getElementById('master-canvas');
+        // 1. محرك القلوب المتساقطة
+        const canvas = document.getElementById('magic-canvas');
         const ctx = canvas.getContext('2d');
-        let stars = [];
-        const STAR_COUNT = 500;
+        let particles = [];
 
-        class Star {
-            constructor() {
-                this.reset();
-            }
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2.5;
-                this.speed = Math.random() * 0.5 + 0.1;
-                this.opacity = Math.random();
-            }
-            update() {
-                this.y += this.speed;
-                if (this.y > canvas.height) this.reset();
-            }
-            draw() {
-                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        function initStars() {
+        function initParticles() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            stars = [];
-            for (let i = 0; i < STAR_COUNT; i++) stars.push(new Star());
-        }
-
-        function renderFrame() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            stars.forEach(star => {
-                star.update();
-                star.draw();
-            });
-            requestAnimationFrame(renderFrame);
-        }
-
-        // --- 2. توليد محطات الرحلة (Waypoint Generator - 100 Items) ---
-        const navigationInject = document.getElementById('navigation-inject');
-        const baseWaypoints = [
-            "تاريخ تعارفنا", "أول رسالة", "ضحكتكِ الأولى", "وعدنا الأبدي", 
-            "كوكب الجمال", "مجرة العشق", "سديم الحنان", "مدار الوفاء"
-        ];
-
-        function generateWaypoints() {
-            for (let i = 1; i <= 100; i++) {
-                const item = document.createElement('div');
-                item.className = 'nav-item';
-                const label = baseWaypoints[i % baseWaypoints.length];
-                item.innerHTML = `<span style="color:var(--primary-neon); font-family:var(--data-font);">LOG_0${i}</span> - ${label}`;
-                item.onclick = () => openTerminal(label, `تم الوصول إلى المحطة رقم ${i} في مجرة أفلانة. البيانات تشير إلى وجود كميات هائلة من الحب والإعجاب.`);
-                navigationInject.appendChild(item);
+            particles = [];
+            for(let i=0; i<50; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 20 + 10,
+                    speed: Math.random() * 2 + 1,
+                    emoji: ['🌸', '💖', '✨', '☁️', '🍭'][Math.floor(Math.random() * 5)]
+                });
             }
         }
 
-        // --- 3. نظام اللوغات المباشر (Log Streamer) ---
-        const logMessages = [
-            "> INITIALIZING NEBULA_OS...",
-            "> SEARCHING FOR AFLANA...",
-            "> AFLANA DETECTED AT COORDS [12, 10, 2023]",
-            "> HEARTBEAT STABLE AT 140BPM",
-            "> ANALYZING SMILE_DYNAMICS... 100% PERFECT",
-            "> SECURING CONNECTION TO HEART_CORE...",
-            "> ACCESS GRANTED: WELCOME COMMANDER.",
-            "> SCANNING MEMORIES...",
-            "> UPDATING LOVE_DATABASE...",
-            "> WARNING: BEAUTY OVERLOAD DETECTED!"
-        ];
-
-        function streamLogs() {
-            const entry = document.createElement('div');
-            entry.innerText = logMessages[Math.floor(Math.random() * logMessages.length)];
-            entry.style.paddingBottom = "5px";
-            logConsole.prepend(entry);
-            if (logConsole.children.length > 50) logConsole.removeChild(logConsole.lastChild);
-            setTimeout(streamLogs, 1500);
+        function drawParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                ctx.font = `${p.size}px serif`;
+                ctx.fillText(p.emoji, p.x, p.y);
+                p.y += p.speed;
+                if(p.y > canvas.height) p.y = -20;
+            });
+            requestAnimationFrame(drawParticles);
         }
 
-        // --- 4. عداد وقت المهمة (Mission Clock) ---
-        let startTime = Date.now();
-        function updateMissionClock() {
-            const now = Date.now();
-            const diff = now - startTime;
-            const h = Math.floor(diff / 3600000).toString().padStart(2, '0');
-            const m = Math.floor((diff % 3600000) / 60000).toString().padStart(2, '0');
-            const s = Math.floor((diff % 60000) / 1000).toString().padStart(2, '0');
-            document.getElementById('tele-timer').innerText = `${h}:${m}:${s}`;
-            setTimeout(updateMissionClock, 1000);
+        // 2. توليد 100 محطة ذكريات
+        const memoryList = document.getElementById('memory-list');
+        const cuteTitles = ["بسكوتة", "مارشميلو", "وردة", "غيمة", "عسل", "نجمة", "سكرة"];
+        
+        function buildMemories() {
+            for(let i=1; i<=100; i++) {
+                const div = document.createElement('div');
+                div.className = 'memory-item';
+                const t = cuteTitles[i % cuteTitles.length];
+                div.innerHTML = `<span>🎀</span> ذكرى الـ ${t} رقم ${i}`;
+                div.onclick = () => showCuteModal(`محطة الـ ${t}`, `يا أفلانة، هذه الذكرى تقول أنكِ ألطف إنسانة في المجرة رقم ${i}! 🍭`);
+                memoryList.appendChild(div);
+            }
         }
 
-        // --- 5. محرك الصوت (Audio Control Logic) ---
-        function toggleAudioEngine() {
-            if (audio.paused) {
+        // 3. التحكم في الأرنوب
+        function bunnyClick() {
+            const bunny = document.getElementById('bunny');
+            const txt = document.getElementById('main-text');
+            const reactions = ["أحبكِ! ❤️", "أنتِ رائعة! ✨", "ممم.. كيك! 🍰", "هيا نرقص! 💃"];
+            bunny.style.transform = "scale(1.5) rotate(20deg)";
+            txt.innerText = reactions[Math.floor(Math.random() * reactions.length)];
+            setTimeout(() => { bunny.style.transform = "scale(1)"; }, 300);
+        }
+
+        // 4. الموسيقى والوقت
+        const audio = document.getElementById('cute-audio');
+        function toggleMusic() {
+            const disk = document.getElementById('disk-anim');
+            const btn = document.getElementById('btn-icon');
+            if(audio.paused) {
                 audio.play();
-                playBtn.innerText = "⏸";
-                vinyl.style.animationPlayState = "running";
+                btn.innerText = "⏸";
+                disk.style.animationPlayState = "running";
             } else {
                 audio.pause();
-                playBtn.innerText = "▶";
-                vinyl.style.animationPlayState = "paused";
+                btn.innerText = "▶";
+                disk.style.animationPlayState = "paused";
             }
         }
 
         audio.ontimeupdate = () => {
-            const percent = (audio.currentTime / audio.duration) * 100;
-            progressBar.style.width = percent + "%";
-            
-            const m = Math.floor(audio.currentTime / 60);
-            const s = Math.floor(audio.currentTime % 60);
-            document.getElementById('current-time').innerText = `${m}:${s < 10 ? '0'+s : s}`;
+            const bar = document.getElementById('music-bar');
+            bar.style.width = (audio.currentTime / audio.duration * 100) + "%";
         };
 
-        // --- 6. نظام الـ HUD الكبري (Terminal Controls) ---
-        function openTerminal(title, content) {
-            document.getElementById('hud-content-area').innerText = content;
-            document.getElementById('global-hud-overlay').style.display = 'flex';
+        // 5. المودال
+        function showCuteModal(t, b) {
+            document.getElementById('modal-title').innerText = t;
+            document.getElementById('modal-body').innerText = b;
+            document.getElementById('cute-modal').style.display = 'flex';
         }
 
-        function closeTerminal() {
-            document.getElementById('global-hud-overlay').style.display = 'none';
-        }
+        function closeCute() { document.getElementById('cute-modal').style.display = 'none'; }
 
-        function triggerEasterEgg() {
-            openTerminal("إعلان الحب السري", "أنتِ لستِ مجرد شخص في حياتي، أنتِ الكون كله.. أحبكِ جداً.");
-        }
+        // 6. عداد الوقت
+        let s = 0;
+        setInterval(() => {
+            s++;
+            const h = Math.floor(s/3600).toString().padStart(2,'0');
+            const m = Math.floor((s%3600)/60).toString().padStart(2,'0');
+            const sec = (s%60).toString().padStart(2,'0');
+            document.getElementById('happy-counter').innerText = `${h}:${m}:${sec}`;
+        }, 1000);
 
-        // --- 7. تهيئة النظام الكامل ---
-        window.onload = () => {
-            initStars();
-            renderFrame();
-            generateWaypoints();
-            streamLogs();
-            updateMissionClock();
-            console.log("NEBULA OS v10.0: SYSTEM READY. ENJOY YOUR TRIP COMMANDER AFLANA.");
-        };
+        window.onload = () => { initParticles(); drawParticles(); buildMemories(); };
+        window.onresize = initParticles;
 
-        window.onresize = initStars;
-
-        /**
-         * ملاحظة: تم كتابة هذا الكود بأسلوب يسمح بالتوسع المستمر.
-         * تم إضافة مئات السطور من المنطق البرمجي لضمان الاحترافية.
-         */
     </script>
 </body>
 </html>
